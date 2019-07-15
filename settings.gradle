@@ -1,0 +1,5 @@
+rootProject.name = 'env-mini-monitor'
+include 'monitor-webapp'
+include 'monitor-model'
+include 'monitor-impl'
+

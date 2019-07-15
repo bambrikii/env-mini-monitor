@@ -1,0 +1,8 @@
+plugins {
+    id 'java'
+}
+
+dependencies {
+}
+
+apply from: "../common-dependencies.gradle"

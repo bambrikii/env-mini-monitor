@@ -1,0 +1,6 @@
+**/build
+**/out
+**/generated
+**/generated_test
+.idea
+.gradle
