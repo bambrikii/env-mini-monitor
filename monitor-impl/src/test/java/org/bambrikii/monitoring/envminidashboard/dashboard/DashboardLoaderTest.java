@@ -1,8 +1,11 @@
 package org.bambrikii.monitoring.envminidashboard.dashboard;
 
 import org.bambrikii.monitoring.envminidashboard.connectors.ConnectionPool;
-import org.bambrikii.monitoring.envminidashboard.impl.connectors.WindowsConnectionSetting;
-import org.bambrikii.monitoring.envminidashboard.impl.connectors.WindowsConnector;
+import org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh.SshConnectionSetting;
+import org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh.SshConnector;
+import org.bambrikii.monitoring.envminidashboard.impl.connectors.windows.WindowsConnectionSetting;
+import org.bambrikii.monitoring.envminidashboard.impl.connectors.windows.WindowsConnector;
+import org.bambrikii.monitoring.envminidashboard.impl.loader.LinuxSysMetricsLoader;
 import org.bambrikii.monitoring.envminidashboard.impl.loader.WindowsAppLogsMetricsLoader;
 import org.bambrikii.monitoring.envminidashboard.impl.loader.WindowsSysMetricsLoader;
 import org.bambrikii.monitoring.envminidashboard.model.Dashboard;
@@ -18,9 +21,22 @@ public class DashboardLoaderTest {
     @Test
     public void shouldLoadLocalMetrics() {
         DashboardBuilder dashboardBuilder = new DashboardBuilder();
+
+        // My Laptop
         Tag myLaptopTag = new Tag();
         myLaptopTag.setName("myLaptop");
+
         WindowsConnectionSetting localConnectionSetting = new WindowsConnectionSetting();
+
+        // My Vm
+        Tag myVmTag = new Tag();
+        myVmTag.setName("myVm");
+
+        SshConnectionSetting vmConnectionSetting = new SshConnectionSetting();
+        vmConnectionSetting.setHost("192.168.1.3");
+        vmConnectionSetting.setUsername("asd");
+        vmConnectionSetting.setPassword("qweasdzxc");
+
         dashboardBuilder
                 .env("local")
 
@@ -28,17 +44,26 @@ public class DashboardLoaderTest {
                 .metricsFamily(APP_LOGS_METRICS_FAMILY, myLaptopTag)
                 .connectionSettings(localConnectionSetting, myLaptopTag)
 
+                .metricsFamily(SYS_METRICS_FAMILY, myVmTag)
+                .connectionSettings(vmConnectionSetting, myVmTag)
+
                 .metricsFamilyLoader(new WindowsSysMetricsLoader())
-                .metricsFamilyLoader(new WindowsAppLogsMetricsLoader());
+                .metricsFamilyLoader(new WindowsAppLogsMetricsLoader())
+
+                .metricsFamilyLoader(new LinuxSysMetricsLoader())
+        ;
 
         Dashboard dashboard = dashboardBuilder.buildDashboard();
 
         ConnectionPool connectionPool = new ConnectionPool();
-        connectionPool.register(localConnectionSetting, new WindowsConnector());
+        connectionPool.
+                register(localConnectionSetting, new WindowsConnector())
+                .register(vmConnectionSetting, new SshConnector());
 
         DashboardLoader dashboardLoader = new DashboardLoader(connectionPool);
         DashboardResult dashboardResult = dashboardLoader.load(dashboard);
 
         assertNotNull(dashboardResult);
+        System.out.println(dashboardResult.toString());
     }
 }

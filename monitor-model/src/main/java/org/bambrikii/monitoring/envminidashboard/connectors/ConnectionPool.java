@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 public class ConnectionPool {
-    private Map<ConnectionSetting, Connectable> pool = new HashMap<>();
-    private Map<String, List<Connectable>> connectionsByType = new HashMap<>();
+    private Map<ConnectionSetting, AbstractConnector> pool = new HashMap<>();
+    private Map<String, List<AbstractConnector>> connectionsByType = new HashMap<>();
 
-    public ConnectionPool register(ConnectionSetting connectionSetting, Connectable connector) {
+    public ConnectionPool register(ConnectionSetting connectionSetting, AbstractConnector connector) {
         if (!pool.containsKey(connectionSetting)) {
             pool.put(connectionSetting, connector);
             String connectionSettingsTypeName = connectionSetting.getClass().getName();
@@ -24,14 +24,14 @@ public class ConnectionPool {
         return this;
     }
 
-    public <C extends Connectable> C findConnection(ConnectionSetting connectionSetting) {
+    public <C extends AbstractConnector> C findConnection(ConnectionSetting connectionSetting) {
         if (!pool.containsKey(connectionSetting)) {
             throw new IllegalArgumentException("No connectionSetting found for " + connectionSetting + "!");
         }
         return (C) pool.get(connectionSetting);
     }
 
-    public List<Connectable> findConnections(Class<? extends ConnectionSetting> connectionSettingsType) {
+    public List<AbstractConnector> findConnections(Class<? extends ConnectionSetting> connectionSettingsType) {
         return connectionsByType.get(connectionSettingsType.getName());
     }
 }

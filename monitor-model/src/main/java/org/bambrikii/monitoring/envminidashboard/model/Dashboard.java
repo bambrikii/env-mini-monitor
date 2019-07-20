@@ -3,7 +3,7 @@ package org.bambrikii.monitoring.envminidashboard.model;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import org.bambrikii.monitoring.envminidashboard.connectors.Connectable;
+import org.bambrikii.monitoring.envminidashboard.connectors.AbstractConnector;
 import org.bambrikii.monitoring.envminidashboard.loaders.MetricsFamilyLoader;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class Dashboard {
     private List<Environment> environments = new ArrayList<>();
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    private List<MetricsFamilyLoader<ConnectionSetting, Connectable<ConnectionSetting>>> metricsFamilyLoaders = new ArrayList<>();
+    private List<MetricsFamilyLoader<ConnectionSetting, AbstractConnector<ConnectionSetting>>> metricsFamilyLoaders = new ArrayList<>();
 
     @Setter(AccessLevel.NONE)
     private Map<MetricsFamily, List<MetricsFamilyLoader>> metricsFamilyLoadersByMetricsFamily = new HashMap<>();
