@@ -36,6 +36,9 @@ public class DashboardLoader {
 
                 for (MetricsFamily metricsFamily : metricsFamilies) {
                     List<MetricsFamilyLoader> metricsFamilyLoaders = metricsLoaders.get(metricsFamily);
+                    if (metricsFamilyLoaders == null || metricsFamilyLoaders.isEmpty()) {
+                        continue;
+                    }
 
                     MetricsFamilyResult metricsFamilyResult = new MetricsFamilyResult();
                     metricsFamilyResult.setCode(metricsFamily.getCode());

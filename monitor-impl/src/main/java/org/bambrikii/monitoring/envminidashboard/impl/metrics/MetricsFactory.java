@@ -8,6 +8,7 @@ public class MetricsFactory {
 
     public static final Metric SYS_CPU_USAGE_METRIC = new Metric("sys.cpu.usage");
     public static final Metric SYS_MEM_USAGE_METRIC = new Metric("sys.mem.usage");
+    public static final Metric SYS_FILESYSTEM_USAGE_METRIC = new Metric("sys.filesystem.usage");
 
     public static final Metric APP_LOGS_METRIC = new Metric("app.logs");
 }

@@ -4,6 +4,7 @@ plugins {
 
 dependencies {
     compile project(":monitor-model")
+    compile("com.jcraft:jsch:0.1.53")
 }
 
 apply from: "../common-dependencies.gradle"

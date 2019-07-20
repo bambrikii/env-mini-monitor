@@ -14,6 +14,7 @@ public class DashboardResult {
     public EnvironmentResult addEnvironment(String code) {
         EnvironmentResult environmentResult = new EnvironmentResult();
         environmentResult.setCode(code);
+        environments.add(environmentResult);
         return environmentResult;
     }
 }

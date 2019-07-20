@@ -7,5 +7,6 @@ public class WindowsConnector implements Connectable<WindowsConnectionSetting> {
     @Override
     public void connect(ConnectionSetting connectionSetting) {
         String hostName = connectionSetting.getHost();
+        int port = connectionSetting.getPort();
     }
 }
