@@ -1,4 +1,4 @@
-package org.bambrikii.monitoring.envminidashboard.impl.connectors;
+package org.bambrikii.monitoring.envminidashboard.impl.connectors.windows;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -8,7 +8,5 @@ import org.bambrikii.monitoring.envminidashboard.model.ConnectionSetting;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-public class HttpConnectionSetting extends ConnectionSetting {
-    private String urlPath;
-    private String method;
+public class WindowsConnectionSetting extends ConnectionSetting {
 }

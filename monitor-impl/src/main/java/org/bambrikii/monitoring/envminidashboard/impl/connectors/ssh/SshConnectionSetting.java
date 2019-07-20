@@ -1,4 +1,4 @@
-package org.bambrikii.monitoring.envminidashboard.impl.connectors;
+package org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

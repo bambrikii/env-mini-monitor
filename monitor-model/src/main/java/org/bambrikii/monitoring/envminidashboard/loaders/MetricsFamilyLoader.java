@@ -1,7 +1,8 @@
 package org.bambrikii.monitoring.envminidashboard.loaders;
 
-import org.bambrikii.monitoring.envminidashboard.connectors.Connectable;
+import org.bambrikii.monitoring.envminidashboard.connectors.AbstractConnector;
 import org.bambrikii.monitoring.envminidashboard.connectors.ConnectionPool;
+import org.bambrikii.monitoring.envminidashboard.connectors.ConnectorCommandable;
 import org.bambrikii.monitoring.envminidashboard.model.ConnectionSetting;
 import org.bambrikii.monitoring.envminidashboard.model.MetricsFamily;
 import org.bambrikii.monitoring.envminidashboard.model.Tag;
@@ -11,7 +12,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class MetricsFamilyLoader<S extends ConnectionSetting, C extends Connectable<S>> {
+public abstract class MetricsFamilyLoader<S extends ConnectionSetting, C extends AbstractConnector<S>> {
     private final List<MetricsFamily> metricsFamilies;
 
     public MetricsFamilyLoader(MetricsFamily... metricsFamilies) {
@@ -22,21 +23,16 @@ public abstract class MetricsFamilyLoader<S extends ConnectionSetting, C extends
         return Collections.unmodifiableList(metricsFamilies);
     }
 
-    protected List<MetricsFamily> getMetricsFamilies0() {
-        return metricsFamilies;
+    public final List<MetricsResult> load(ConnectionPool connectionPool, S connectionSetting, Tag tag) {
+        if (!isConnectionSettingValid(connectionSetting)) {
+            return Collections.emptyList();
+        }
+        C connection = connectionPool.findConnection(connectionSetting);
+
+        return connection.apply(connectionSetting, getCommands());
     }
 
-    public final List<MetricsResult> load(ConnectionPool connectionPool, ConnectionSetting connectionSetting, Tag tag) {
-        if (!isConnectionSettingValid(connectionSetting)) {
-            throw new IllegalArgumentException("Invalid ConnectionSetting type " + connectionSetting + "!");
-        }
-        S connectionSettingsLocal = (S) connectionSetting;
-        C connection = connectionPool.findConnection(connectionSetting);
-        connection.connect(connectionSettingsLocal);
-        return loadImpl(connection);
-    }
+    protected abstract ConnectorCommandable[] getCommands();
 
     protected abstract boolean isConnectionSettingValid(ConnectionSetting connectionSetting);
-
-    protected abstract List<MetricsResult> loadImpl(C connection);
 }
