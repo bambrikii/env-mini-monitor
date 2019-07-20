@@ -1,8 +1,10 @@
 package org.bambrikii.monitoring.envminidashboard.impl.connectors;
 
-public class HttpConnector extends AbstractConnector<HttpConnectionSettings> {
+import org.bambrikii.monitoring.envminidashboard.model.ConnectionSetting;
+
+public class HttpConnector extends AbstractConnector<HttpConnectionSetting> {
     @Override
-    public void connect(HttpConnectionSettings connection) {
+    public void connect(ConnectionSetting connectionSetting) {
         throw new UnsupportedOperationException("Not yet implemented!");
     }
 }

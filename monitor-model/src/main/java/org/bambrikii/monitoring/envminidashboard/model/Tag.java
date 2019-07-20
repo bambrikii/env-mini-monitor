@@ -5,7 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Monitor {
-    private Metricable metric;
-    private Object value;
+public class Tag {
+    private String name;
 }

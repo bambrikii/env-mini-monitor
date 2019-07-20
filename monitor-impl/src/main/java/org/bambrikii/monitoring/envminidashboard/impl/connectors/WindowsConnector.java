@@ -3,7 +3,9 @@ package org.bambrikii.monitoring.envminidashboard.impl.connectors;
 import org.bambrikii.monitoring.envminidashboard.connectors.Connectable;
 import org.bambrikii.monitoring.envminidashboard.model.ConnectionSetting;
 
-public abstract class AbstractConnector<C extends ConnectionSetting> implements Connectable<C> {
+public class WindowsConnector implements Connectable<WindowsConnectionSetting> {
     @Override
-    public abstract void connect(ConnectionSetting connectionSetting);
+    public void connect(ConnectionSetting connectionSetting) {
+        String hostName = connectionSetting.getHost();
+    }
 }
