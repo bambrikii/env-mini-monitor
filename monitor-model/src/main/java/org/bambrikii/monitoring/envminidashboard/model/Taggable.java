@@ -2,10 +2,10 @@ package org.bambrikii.monitoring.envminidashboard.model;
 
 import java.util.List;
 
-public interface Taggable {
+public interface Taggable<M extends MetricsFamilible, C extends ConnectionSettingable> {
     String getName();
 
-    List<MetricsFamilible> getMetricsFamilies();
+    List<M> getMetricsFamilies();
 
-    List<ConnectionSettingable> getConnectionSettings();
+    List<C> getConnectionSettings();
 }

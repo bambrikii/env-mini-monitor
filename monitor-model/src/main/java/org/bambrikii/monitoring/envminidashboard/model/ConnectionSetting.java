@@ -9,5 +9,5 @@ import lombok.Setter;
 @EqualsAndHashCode
 public class ConnectionSetting implements ConnectionSettingable {
     private String host;
-    private int port = 22;
+    private Integer port = 22;
 }

@@ -10,13 +10,21 @@ plugins {
     id 'java'
 }
 
-apply plugin: "org.springframework.boot"
+//apply plugin: "org.springframework.boot"
 apply plugin: "io.spring.dependency-management"
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter")
     compile project(":monitor-data")
     compile project(":monitor-impl")
+
+    compile("org.springframework.boot:spring-boot-starter:${springBootStarterVersion}")
+
+    compile("javax.xml.bind:jaxb-api:2.2.11")
+    compile("com.sun.xml.bind:jaxb-core:2.2.11")
+    compile("com.sun.xml.bind:jaxb-impl:2.2.11")
+    compile("javax.activation:activation:1.1.1")
+    compile("org.javassist:javassist:3.25.0-GA")
+
 }
 
 apply from: "../common-dependencies.gradle"

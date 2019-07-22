@@ -21,7 +21,7 @@ import javax.persistence.Table;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class ConnectionSettingConfig implements ConnectionSettingable {
     @Id
-    @GeneratedValue(generator = "CONN_SETTINGS_CONFIG", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "CONN_SETTINGS_SEQ", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "CONN_SETTINGS_SEQ", sequenceName = "CONN_SETTINGS_SEQ")
     private Long id;
 

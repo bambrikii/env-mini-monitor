@@ -2,8 +2,8 @@ package org.bambrikii.monitoring.envminidashboard.model;
 
 import java.util.List;
 
-public interface Environmentable {
+public interface Environmentable<T extends Taggable> {
     String getCode();
 
-    List<Taggable> getTags();
+    List<T> getTags();
 }

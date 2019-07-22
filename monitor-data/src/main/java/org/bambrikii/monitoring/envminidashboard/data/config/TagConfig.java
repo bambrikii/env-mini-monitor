@@ -19,9 +19,9 @@ import java.util.List;
 @Setter
 @Entity
 @Table
-public class TagConfig implements Taggable {
+public class TagConfig implements Taggable<MetricsFamilyConfig, ConnectionSettingConfig> {
     @Id
-    @GeneratedValue(generator = "TAG_CONFIG", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "TAG_SEQ", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "TAG_SEQ", sequenceName = "TAG_SEQ")
     private Long id;
 

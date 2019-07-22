@@ -1,4 +1,4 @@
-package org.bambrikii.monitoring.envminidashboard.loaderlib;
+package org.bambrikii.monitoring.envminidashboard.webapp.loader;
 
 import org.bambrikii.monitoring.envminidashboard.connectors.ConnectionPool;
 import org.bambrikii.monitoring.envminidashboard.dashboard.DashboardLoader;

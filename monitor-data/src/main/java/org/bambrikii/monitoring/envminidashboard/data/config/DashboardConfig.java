@@ -20,7 +20,7 @@ import java.util.List;
 @Table
 public class DashboardConfig implements Dashboardable {
     @Id
-    @GeneratedValue(generator = "DASHBOARD_CONFIG", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "DASHBOARD_SEQ", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "DASHBOARD_SEQ", sequenceName = "DASHBOARD_SEQ")
     private Long id;
     @OneToMany

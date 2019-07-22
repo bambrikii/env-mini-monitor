@@ -10,14 +10,14 @@ plugins {
     id 'java'
 }
 
-apply plugin: "org.springframework.boot"
+//apply plugin: "org.springframework.boot"
 apply plugin: "io.spring.dependency-management"
 
 dependencies {
     compile project(":monitor-model")
 
-    compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    compile("com.h2database:h2")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa:${springBootStarterVersion}")
+    compile("com.h2database:h2:1.4.199")
 }
 
 apply from: "../common-dependencies.gradle"

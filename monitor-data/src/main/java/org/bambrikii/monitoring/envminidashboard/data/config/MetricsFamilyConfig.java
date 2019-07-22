@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @Table
 public class MetricsFamilyConfig implements MetricsFamilible {
     @Id
-    @GeneratedValue(generator = "METRICS_FAMILY_CONFIG", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "METRICS_FAMILY_SEQ", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "METRICS_FAMILY_SEQ", sequenceName = "METRICS_FAMILY_SEQ")
     private Long id;
     @Column(nullable = false, unique = true)

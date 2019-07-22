@@ -19,9 +19,9 @@ import java.util.List;
 @Setter
 @Entity
 @Table
-public class EnvironmentConfig implements Environmentable {
+public class EnvironmentConfig implements Environmentable<TagConfig> {
     @Id
-    @GeneratedValue(generator = "ENVIRONMENT_CONFIG", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "ENVIRONMENT_SEQ", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "ENVIRONMENT_SEQ", sequenceName = "ENVIRONMENT_SEQ")
     private Long id;
     @Column(nullable = false, unique = true)

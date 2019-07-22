@@ -37,7 +37,7 @@ public class DashboardLoader {
         this.metricsLoaders = Collections.unmodifiableMap(metricsLoaders);
     }
 
-    public DashboardResult load(Dashboardable dashboard) {
+    public DashboardResult load(Dashboardable<?> dashboard) {
         DashboardResult dashboardResult = new DashboardResult();
 
         for (Environmentable environment : dashboard.getEnvironments()) {
