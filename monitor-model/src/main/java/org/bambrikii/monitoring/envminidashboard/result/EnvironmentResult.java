@@ -12,11 +12,14 @@ import java.util.List;
 @ToString
 public class EnvironmentResult {
     private String code;
-    private List<ConnectionResult> connections = new ArrayList<>();
+    private List<TagResult> tags = new ArrayList<>();
 
-    public ConnectionResult addConnection() {
-        ConnectionResult connectionResult = new ConnectionResult();
-        connections.add(connectionResult);
-        return connectionResult;
+    public TagResult addTag(String name) {
+        TagResult tagResult = new TagResult();
+        tagResult.setName(name);
+
+        tags.add(tagResult);
+
+        return tagResult;
     }
 }

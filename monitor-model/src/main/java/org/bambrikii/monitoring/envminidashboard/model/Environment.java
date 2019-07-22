@@ -4,31 +4,45 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Getter
 @Setter
-public class Environment {
+public class Environment implements Environmentable {
     private String code;
+
     @Setter(AccessLevel.NONE)
-    private Map<Tag, TagMappingContainer> tagMappingContainers = new LinkedHashMap<>();
+    private List<Taggable> tags = new ArrayList<>();
 
-    public Environment addMetricsFamily(MetricsFamily metricsFamily, Tag... tags) {
-        for (Tag tag : tags) {
-            ensureTagMappingContainer(tag).ensureMetricsFamily(metricsFamily);
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    private Map<String, Taggable> tagMappingContainerMap = new HashMap<>();
+
+    public Environmentable addMetricsFamily(MetricsFamilible metricsFamily, Taggable... tags) {
+        for (Taggable tag : tags) {
+            ensureTag(tag).getMetricsFamilies().add(metricsFamily);
         }
         return this;
     }
 
-    public Environment addConnectionMapping(ConnectionSetting connectionSetting, Tag... tags) {
-        for (Tag tag : tags) {
-            ensureTagMappingContainer(tag).ensureConnectionSettings(connectionSetting);
+    public Environmentable addConnectionMapping(ConnectionSettingable connectionSetting, Taggable... tags) {
+        for (Taggable tag : tags) {
+            ensureTag(tag).getConnectionSettings().add(connectionSetting);
         }
         return this;
     }
 
-    private TagMappingContainer ensureTagMappingContainer(Tag tag) {
-        return tagMappingContainers.computeIfAbsent(tag, (tag1) -> new TagMappingContainer());
+    private Taggable ensureTag(Taggable tag) {
+        String tagName = tag.getName();
+        if (!tagMappingContainerMap.containsKey(tagName)) {
+            Tag container = new Tag();
+            tagMappingContainerMap.put(tagName, container);
+            tags.add(container);
+            return container;
+        }
+        return tagMappingContainerMap.get(tagName);
     }
 }

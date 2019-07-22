@@ -4,7 +4,7 @@ import org.bambrikii.monitoring.envminidashboard.connectors.ConnectorCommandable
 import org.bambrikii.monitoring.envminidashboard.impl.connectors.windows.WindowsConnectionSetting;
 import org.bambrikii.monitoring.envminidashboard.impl.connectors.windows.WindowsConnector;
 import org.bambrikii.monitoring.envminidashboard.loaders.MetricsFamilyLoader;
-import org.bambrikii.monitoring.envminidashboard.model.ConnectionSetting;
+import org.bambrikii.monitoring.envminidashboard.model.ConnectionSettingable;
 
 public class WindowsAppLogsMetricsLoader extends MetricsFamilyLoader<WindowsConnectionSetting, WindowsConnector> {
     @Override
@@ -13,7 +13,7 @@ public class WindowsAppLogsMetricsLoader extends MetricsFamilyLoader<WindowsConn
     }
 
     @Override
-    protected boolean isConnectionSettingValid(ConnectionSetting connectionSetting) {
+    protected boolean isConnectionSettingValid(ConnectionSettingable connectionSetting) {
         return connectionSetting instanceof WindowsConnectionSetting;
     }
 }

@@ -5,7 +5,7 @@ import org.bambrikii.monitoring.envminidashboard.impl.connectors.windows.Windows
 import org.bambrikii.monitoring.envminidashboard.impl.connectors.windows.WindowsConnector;
 import org.bambrikii.monitoring.envminidashboard.impl.metrics.FileSystemMetricsValue;
 import org.bambrikii.monitoring.envminidashboard.loaders.MetricsFamilyLoader;
-import org.bambrikii.monitoring.envminidashboard.model.ConnectionSetting;
+import org.bambrikii.monitoring.envminidashboard.model.ConnectionSettingable;
 import org.bambrikii.monitoring.envminidashboard.result.Metric;
 import org.bambrikii.monitoring.envminidashboard.result.MetricsResult;
 
@@ -49,7 +49,7 @@ public class WindowsSysMetricsLoader extends MetricsFamilyLoader<WindowsConnecti
         };
     }
 
-    protected boolean isConnectionSettingValid(ConnectionSetting connectionSetting) {
+    protected boolean isConnectionSettingValid(ConnectionSettingable connectionSetting) {
         return connectionSetting instanceof WindowsConnectionSetting;
     }
 }

@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class ConnectionSetting {
+public class ConnectionSetting implements ConnectionSettingable {
     private String host;
     private int port = 22;
 }

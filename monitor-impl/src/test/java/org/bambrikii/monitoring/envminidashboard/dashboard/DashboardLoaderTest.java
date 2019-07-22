@@ -8,10 +8,13 @@ import org.bambrikii.monitoring.envminidashboard.impl.connectors.windows.Windows
 import org.bambrikii.monitoring.envminidashboard.impl.loader.LinuxSysMetricsLoader;
 import org.bambrikii.monitoring.envminidashboard.impl.loader.WindowsAppLogsMetricsLoader;
 import org.bambrikii.monitoring.envminidashboard.impl.loader.WindowsSysMetricsLoader;
-import org.bambrikii.monitoring.envminidashboard.model.Dashboard;
+import org.bambrikii.monitoring.envminidashboard.loaders.MetricsFamilyLoader;
+import org.bambrikii.monitoring.envminidashboard.model.Dashboardable;
 import org.bambrikii.monitoring.envminidashboard.model.Tag;
 import org.bambrikii.monitoring.envminidashboard.result.DashboardResult;
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.bambrikii.monitoring.envminidashboard.impl.metrics.MetricsFactory.APP_LOGS_METRICS_FAMILY;
 import static org.bambrikii.monitoring.envminidashboard.impl.metrics.MetricsFactory.SYS_METRICS_FAMILY;
@@ -53,14 +56,15 @@ public class DashboardLoaderTest {
                 .metricsFamilyLoader(new LinuxSysMetricsLoader())
         ;
 
-        Dashboard dashboard = dashboardBuilder.buildDashboard();
+        Dashboardable dashboard = dashboardBuilder.buildDashboard();
+        List<MetricsFamilyLoader> loaders = dashboardBuilder.buildLoaders();
 
         ConnectionPool connectionPool = new ConnectionPool();
         connectionPool.
                 register(localConnectionSetting, new WindowsConnector())
                 .register(vmConnectionSetting, new SshConnector());
 
-        DashboardLoader dashboardLoader = new DashboardLoader(connectionPool);
+        DashboardLoader dashboardLoader = new DashboardLoader(connectionPool, loaders);
         DashboardResult dashboardResult = dashboardLoader.load(dashboard);
 
         assertNotNull(dashboardResult);

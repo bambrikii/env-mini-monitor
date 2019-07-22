@@ -4,7 +4,7 @@ import org.bambrikii.monitoring.envminidashboard.connectors.ConnectorCommandable
 import org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh.SshConnectionSetting;
 import org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh.SshConnector;
 import org.bambrikii.monitoring.envminidashboard.loaders.MetricsFamilyLoader;
-import org.bambrikii.monitoring.envminidashboard.model.ConnectionSetting;
+import org.bambrikii.monitoring.envminidashboard.model.ConnectionSettingable;
 import org.bambrikii.monitoring.envminidashboard.result.Metric;
 import org.bambrikii.monitoring.envminidashboard.result.MetricsResult;
 
@@ -35,7 +35,7 @@ public class LinuxSysMetricsLoader extends MetricsFamilyLoader<SshConnectionSett
     }
 
     @Override
-    protected boolean isConnectionSettingValid(ConnectionSetting connectionSetting) {
+    protected boolean isConnectionSettingValid(ConnectionSettingable connectionSetting) {
         return connectionSetting instanceof SshConnectionSetting;
     }
 }

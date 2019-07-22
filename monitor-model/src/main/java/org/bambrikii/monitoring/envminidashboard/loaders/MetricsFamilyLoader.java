@@ -3,27 +3,27 @@ package org.bambrikii.monitoring.envminidashboard.loaders;
 import org.bambrikii.monitoring.envminidashboard.connectors.AbstractConnector;
 import org.bambrikii.monitoring.envminidashboard.connectors.ConnectionPool;
 import org.bambrikii.monitoring.envminidashboard.connectors.ConnectorCommandable;
-import org.bambrikii.monitoring.envminidashboard.model.ConnectionSetting;
-import org.bambrikii.monitoring.envminidashboard.model.MetricsFamily;
-import org.bambrikii.monitoring.envminidashboard.model.Tag;
+import org.bambrikii.monitoring.envminidashboard.model.ConnectionSettingable;
+import org.bambrikii.monitoring.envminidashboard.model.MetricsFamilible;
+import org.bambrikii.monitoring.envminidashboard.model.Taggable;
 import org.bambrikii.monitoring.envminidashboard.result.MetricsResult;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class MetricsFamilyLoader<S extends ConnectionSetting, C extends AbstractConnector<S>> {
-    private final List<MetricsFamily> metricsFamilies;
+public abstract class MetricsFamilyLoader<S extends ConnectionSettingable, C extends AbstractConnector<S>> {
+    private final List<MetricsFamilible> metricsFamilies;
 
-    public MetricsFamilyLoader(MetricsFamily... metricsFamilies) {
+    public MetricsFamilyLoader(MetricsFamilible... metricsFamilies) {
         this.metricsFamilies = Arrays.asList(metricsFamilies);
     }
 
-    public List<MetricsFamily> getMetricsFamilies() {
+    public List<MetricsFamilible> getMetricsFamilies() {
         return Collections.unmodifiableList(metricsFamilies);
     }
 
-    public final List<MetricsResult> load(ConnectionPool connectionPool, S connectionSetting, Tag tag) {
+    public final List<MetricsResult> load(ConnectionPool connectionPool, S connectionSetting, Taggable tag) {
         if (!isConnectionSettingValid(connectionSetting)) {
             return Collections.emptyList();
         }
@@ -34,5 +34,5 @@ public abstract class MetricsFamilyLoader<S extends ConnectionSetting, C extends
 
     protected abstract ConnectorCommandable[] getCommands();
 
-    protected abstract boolean isConnectionSettingValid(ConnectionSetting connectionSetting);
+    protected abstract boolean isConnectionSettingValid(ConnectionSettingable connectionSetting);
 }

@@ -1,7 +1,7 @@
 package org.bambrikii.monitoring.envminidashboard.connectors;
 
 import lombok.extern.java.Log;
-import org.bambrikii.monitoring.envminidashboard.model.ConnectionSetting;
+import org.bambrikii.monitoring.envminidashboard.model.ConnectionSettingable;
 import org.bambrikii.monitoring.envminidashboard.result.MetricsResult;
 
 import java.util.Arrays;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Log
-public abstract class AbstractConnector<C extends ConnectionSetting> {
+public abstract class AbstractConnector<C extends ConnectionSettingable> {
     public interface ConnectorPerformer {
         List<MetricsResult> perform(ConnectorCommandable command);
     }
