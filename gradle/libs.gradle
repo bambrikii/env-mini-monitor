@@ -1,0 +1,14 @@
+ext.libs = [
+        jsch   : "com.jcraft:jsch:0.1.53",
+        lombok : "org.projectlombok:lombok:${lombokVersion}",
+        mockito: [
+                core: "org.mockito:mockito-core:2.0.21-beta"
+        ],
+        assertj: [
+                core: "org.assertj:assertj-core:3.11.1"
+        ],
+        junit  : [
+                api   : "org.junit.jupiter:junit-jupiter-api:5.6.0",
+                engine: "org.junit.jupiter:junit-jupiter-engine:5.6.0"
+        ]
+]

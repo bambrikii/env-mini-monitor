@@ -1,73 +1,73 @@
 package org.bambrikii.monitoring.envminidashboard.dashboard;
 
-import org.bambrikii.monitoring.envminidashboard.connectors.ConnectionPool;
-import org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh.SshConnectionSetting;
 import org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh.SshConnector;
-import org.bambrikii.monitoring.envminidashboard.impl.connectors.windows.WindowsConnectionSetting;
-import org.bambrikii.monitoring.envminidashboard.impl.connectors.windows.WindowsConnector;
-import org.bambrikii.monitoring.envminidashboard.impl.loader.LinuxSysMetricsLoader;
-import org.bambrikii.monitoring.envminidashboard.impl.loader.WindowsAppLogsMetricsLoader;
-import org.bambrikii.monitoring.envminidashboard.impl.loader.WindowsSysMetricsLoader;
-import org.bambrikii.monitoring.envminidashboard.loaders.MetricsFamilyLoader;
+import org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh.SshHostConnCfg;
+import org.bambrikii.monitoring.envminidashboard.impl.connectors.windows.SmbConnector;
+import org.bambrikii.monitoring.envminidashboard.impl.connectors.windows.WinConnConfig;
+import org.bambrikii.monitoring.envminidashboard.impl.dashboard.DashboardBuilder;
+import org.bambrikii.monitoring.envminidashboard.impl.dashboard.DashboardLoader;
+import org.bambrikii.monitoring.envminidashboard.impl.loader.LinuxSysProbe;
+import org.bambrikii.monitoring.envminidashboard.impl.loader.WinSysProbe;
+import org.bambrikii.monitoring.envminidashboard.impl.loader.WindowsAppLogsProbe;
 import org.bambrikii.monitoring.envminidashboard.model.Dashboardable;
 import org.bambrikii.monitoring.envminidashboard.model.Tag;
 import org.bambrikii.monitoring.envminidashboard.result.DashboardResult;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import java.util.logging.Logger;
 
-import static org.bambrikii.monitoring.envminidashboard.impl.metrics.MetricsFactory.APP_LOGS_METRICS_FAMILY;
-import static org.bambrikii.monitoring.envminidashboard.impl.metrics.MetricsFactory.SYS_METRICS_FAMILY;
-import static org.junit.Assert.assertNotNull;
+import static org.bambrikii.monitoring.envminidashboard.impl.metrics.MetricsRegistry.APP_LOGS_NAMESPACE;
+import static org.bambrikii.monitoring.envminidashboard.impl.metrics.MetricsRegistry.SYS_NAMESPACE;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class DashboardLoaderTest {
+    private static final Logger log = Logger.getLogger(DashboardLoaderTest.class.getName());
+
     @Test
     public void shouldLoadLocalMetrics() {
-        DashboardBuilder dashboardBuilder = new DashboardBuilder();
+        DashboardBuilder builder = new DashboardBuilder();
 
         // My Laptop
         Tag myLaptopTag = new Tag();
         myLaptopTag.setName("myLaptop");
 
-        WindowsConnectionSetting localConnectionSetting = new WindowsConnectionSetting();
+        WinConnConfig localConnConfig = new WinConnConfig();
 
         // My Vm
         Tag myVmTag = new Tag();
         myVmTag.setName("myVm");
 
-        SshConnectionSetting vmConnectionSetting = new SshConnectionSetting();
-        vmConnectionSetting.setHost(System.getenv("MY_VM1_HOSTNAME"));
-        vmConnectionSetting.setUsername(System.getenv("MY_VM1_USERNAME"));
-        vmConnectionSetting.setPassword(System.getenv("MY_VM1_PASSWORD"));
+        SshHostConnCfg connCfg = new SshHostConnCfg();
+        connCfg.setHost(System.getenv("MY_VM1_HOSTNAME"));
+        connCfg.setUsername(System.getenv("MY_VM1_USERNAME"));
+        connCfg.setPassword(System.getenv("MY_VM1_PASSWORD"));
 
-        dashboardBuilder
+        builder
+                .probe(new WinSysProbe())
+                .probe(new WindowsAppLogsProbe())
+                .probe(new LinuxSysProbe())
+
                 .env("local")
 
-                .metricsFamily(SYS_METRICS_FAMILY, myLaptopTag)
-                .metricsFamily(APP_LOGS_METRICS_FAMILY, myLaptopTag)
-                .connectionSettings(localConnectionSetting, myLaptopTag)
+                // my laptop
+                .tag(SYS_NAMESPACE, myLaptopTag)
+                .tag(APP_LOGS_NAMESPACE, myLaptopTag)
+                .tag(localConnConfig, myLaptopTag)
 
-                .metricsFamily(SYS_METRICS_FAMILY, myVmTag)
-                .connectionSettings(vmConnectionSetting, myVmTag)
+                // my vm
+                .tag(SYS_NAMESPACE, myVmTag)
+                .tag(connCfg, myVmTag)
 
-                .metricsFamilyLoader(new WindowsSysMetricsLoader())
-                .metricsFamilyLoader(new WindowsAppLogsMetricsLoader())
+                .connector(localConnConfig, new SmbConnector())
+                .connector(connCfg, new SshConnector());
 
-                .metricsFamilyLoader(new LinuxSysMetricsLoader())
         ;
 
-        Dashboardable dashboard = dashboardBuilder.buildDashboard();
-        List<MetricsFamilyLoader> loaders = dashboardBuilder.buildLoaders();
+        Dashboardable dashboardModel = builder.buildModel();
+        DashboardLoader dashboardImpl = builder.buildImpl();
+        DashboardResult result = dashboardImpl.load(dashboardModel);
 
-        ConnectionPool connectionPool = new ConnectionPool();
-        connectionPool.
-                register(localConnectionSetting, new WindowsConnector())
-                .register(vmConnectionSetting, new SshConnector());
-
-        DashboardLoader dashboardLoader = new DashboardLoader(connectionPool, loaders);
-        DashboardResult dashboardResult = dashboardLoader.load(dashboard);
-
-        assertNotNull(dashboardResult);
-        System.out.println(dashboardResult.toString());
+        log.info(result.toString());
+        assertNotNull(result);
     }
 }

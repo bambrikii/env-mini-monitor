@@ -1,28 +1,25 @@
 package org.bambrikii.monitoring.envminidashboard.connectors;
 
 import lombok.extern.java.Log;
-import org.bambrikii.monitoring.envminidashboard.model.ConnectionSettingable;
-import org.bambrikii.monitoring.envminidashboard.result.MetricsResult;
+import org.bambrikii.monitoring.envminidashboard.model.ConnConfig;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.logging.Logger;
 
 @Log
-public abstract class AbstractConnector<C extends ConnectionSettingable> {
-    public interface ConnectorPerformer {
-        List<MetricsResult> perform(ConnectorCommandable command);
+public abstract class AbstractConnector<C extends ConnConfig> implements ConnectorAdapter, AutoCloseable {
+    private static Logger log = Logger.getLogger(AbstractConnector.class.getName());
+
+    private C config;
+
+    public void init(C config) {
+        this.config = config;
     }
 
-    protected List<MetricsResult> iterate(ConnectorPerformer performer, ConnectorCommandable... commands) {
-        if (commands == null || commands.length == 0) {
-            log.warning("No commands in connector " + this.getClass().getName() + " for performer " + performer.getClass().getName() + "!");
-        }
-        return Arrays.asList(commands)
-                .stream()
-                .flatMap(command -> performer.perform(command).stream())
-                .collect(Collectors.toList());
+    protected C getConfig() {
+        return config;
     }
 
-    public abstract List<MetricsResult> apply(C connectionSetting, ConnectorCommandable... commands);
+    public abstract void ensureOpen();
+
+    public abstract void close();
 }

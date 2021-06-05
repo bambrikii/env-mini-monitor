@@ -1,8 +1,1 @@
-plugins {
-    id 'java'
-}
-
-dependencies {
-}
-
-apply from: "../common-dependencies.gradle"
+apply from: "${rootDir}/gradle/java.gradle"

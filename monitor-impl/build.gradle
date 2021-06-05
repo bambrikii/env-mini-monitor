@@ -1,11 +1,7 @@
-plugins {
-    id 'java'
-}
+apply from: "${rootDir}/gradle/java.gradle"
 
 dependencies {
     compile project(":monitor-model")
 
-    compile("com.jcraft:jsch:0.1.53")
+    compile(libs.jsch)
 }
-
-apply from: "../common-dependencies.gradle"

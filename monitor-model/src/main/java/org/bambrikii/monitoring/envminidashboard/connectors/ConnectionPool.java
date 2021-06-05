@@ -1,37 +1,47 @@
 package org.bambrikii.monitoring.envminidashboard.connectors;
 
-import org.bambrikii.monitoring.envminidashboard.model.ConnectionSettingable;
+import org.bambrikii.monitoring.envminidashboard.model.ConnConfig;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class ConnectionPool {
-    private Map<ConnectionSettingable, AbstractConnector> pool = new HashMap<>();
-    private Map<String, List<AbstractConnector>> connectionsByType = new HashMap<>();
+    private static Logger log = Logger.getLogger(ConnectionPool.class.getName());
 
-    public ConnectionPool register(ConnectionSettingable connectionSetting, AbstractConnector connector) {
-        if (!pool.containsKey(connectionSetting)) {
-            pool.put(connectionSetting, connector);
-            String connectionSettingsTypeName = connectionSetting.getClass().getName();
-            if (!connectionsByType.containsKey(connectionSettingsTypeName)) {
-                connectionsByType.put(connectionSettingsTypeName, new ArrayList<>());
-            }
-            connectionsByType.get(connectionSettingsTypeName).add(connector);
+    private Map<ConnConfig, AbstractConnector> connPool = new HashMap<>();
+
+    public ConnectionPool connector(ConnConfig connConfig, AbstractConnector connector) {
+        if (connPool.containsKey(connConfig)) {
+            log.warning("Configuration already exists for " + connConfig);
+            return this;
         }
-        pool.putIfAbsent(connectionSetting, connector);
+
+        ensureConn(connConfig, connector);
+
         return this;
     }
 
-    public <C extends AbstractConnector> C findConnection(ConnectionSettingable connectionSetting) {
-        if (!pool.containsKey(connectionSetting)) {
-            throw new IllegalArgumentException("No connectionSetting found for " + connectionSetting + "!");
+    private void ensureConn(ConnConfig config, AbstractConnector conn) {
+        conn.init(config);
+        if (!connPool.containsKey(config)) {
+            connPool.put(config, conn);
         }
-        return (C) pool.get(connectionSetting);
     }
 
-    public List<AbstractConnector> findConnections(Class<? extends ConnectionSettingable> connectionSettingsType) {
-        return connectionsByType.get(connectionSettingsType.getName());
+    public <C extends AbstractConnector> C findOne(ConnConfig config) {
+        if (!connPool.containsKey(config)) {
+            throw new IllegalArgumentException("No connectionSetting found for " + config + "!");
+        }
+
+        AbstractConnector conn = connPool.get(config);
+        conn.ensureOpen();
+
+        return (C) conn;
+    }
+
+    public void close(ConnConfig config) {
+        AbstractConnector conn = connPool.get(config);
+        conn.close();
     }
 }

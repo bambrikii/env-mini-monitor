@@ -1,6 +1,6 @@
 package org.bambrikii.monitoring.envminidashboard.webapp.loader;
 
-import org.bambrikii.monitoring.envminidashboard.data.config.DashboardConfig;
+import org.bambrikii.monitoring.envminidashboard.data.config.DashboardConfigEntity;
 import org.bambrikii.monitoring.envminidashboard.data.config.DashboardConfigRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +14,12 @@ public class DashboardConfigService {
     @Autowired
     private DashboardConfigRepository dashboardConfigRepository;
 
-    public void save(DashboardConfig dashboardConfig) {
-        dashboardConfigRepository.save(dashboardConfig);
+    public void save(DashboardConfigEntity dashboardConfigEntity) {
+        dashboardConfigRepository.save(dashboardConfigEntity);
     }
 
-    public List<DashboardConfig> retrieveConfigs() {
-        Iterable<DashboardConfig> dashboardConfigs = dashboardConfigRepository.findAll();
+    public List<DashboardConfigEntity> retrieveConfigs() {
+        Iterable<DashboardConfigEntity> dashboardConfigs = dashboardConfigRepository.findAll();
         return StreamSupport
                 .stream(dashboardConfigs.spliterator(), false)
                 .collect(Collectors.toList());

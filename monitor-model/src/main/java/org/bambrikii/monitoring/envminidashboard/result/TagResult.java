@@ -4,23 +4,33 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Getter
 @Setter
 @ToString
 public class TagResult {
     private String name;
-    private List<ConnectionResult> connections = new ArrayList<>();
+    private Map<Metric, Object> values = new HashMap<>();
 
-    public ConnectionResult addConnection(String type, String name) {
-        ConnectionResult connectionResult = new ConnectionResult();
-        connectionResult.setConnectionType(type);
-        connectionResult.setConnectionName(name);
+    public String getName() {
+        return name;
+    }
 
-        connections.add(connectionResult);
+    public void setName(String name) {
+        this.name = name;
+    }
 
-        return connectionResult;
+    public Map<Metric, Object> getValues() {
+        return values;
+    }
+
+    public void setValues(Map<Metric, Object> values) {
+        this.values = values;
+    }
+
+    public void metric(Metric metric, Object value) {
+        values.put(metric, value);
     }
 }

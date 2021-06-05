@@ -4,22 +4,40 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Getter
 @Setter
 @ToString
 public class EnvironmentResult {
     private String code;
-    private List<TagResult> tags = new ArrayList<>();
+    private Map<String, TagResult> tags = new HashMap<>();
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Map<String, TagResult> getTags() {
+        return tags;
+    }
+
+    public void setTags(Map<String, TagResult> tags) {
+        this.tags = tags;
+    }
 
     public TagResult addTag(String name) {
-        TagResult tagResult = new TagResult();
-        tagResult.setName(name);
+        TagResult tag = new TagResult();
+        tag.setName(name);
 
-        tags.add(tagResult);
+        if (!tags.containsKey(name)) {
+            tags.put(name, tag);
+        }
 
-        return tagResult;
+        return tag;
     }
 }

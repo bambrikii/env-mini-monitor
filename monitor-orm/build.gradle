@@ -1,0 +1,8 @@
+apply from: "${rootDir}/gradle/java.gradle"
+
+dependencies {
+    compile project(":monitor-model")
+
+    compile("org.springframework.boot:spring-boot-starter-data-jpa:${springBootStarterVersion}")
+    compile("com.h2database:h2:1.4.199")
+}

@@ -10,6 +10,33 @@ import java.util.List;
 @Setter
 public class Tag implements Taggable {
     private String name;
-    private List<MetricsFamilible> metricsFamilies = new ArrayList<>();
-    private List<ConnectionSettingable> connectionSettings = new ArrayList<>();
+    private List<MetricsNamespaceable> metricsFamilies = new ArrayList<>();
+    private List<ConnConfig> connectionSettings = new ArrayList<>();
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public List<MetricsNamespaceable> getMetricsNamespaces() {
+        return metricsFamilies;
+    }
+
+    public void setMetricsFamilies(List<MetricsNamespaceable> metricsFamilies) {
+        this.metricsFamilies = metricsFamilies;
+    }
+
+    @Override
+    public List<ConnConfig> getConnConfigs() {
+        return connectionSettings;
+    }
+
+    public void setConnectionSettings(List<ConnConfig> connectionSettings) {
+        this.connectionSettings = connectionSettings;
+    }
 }

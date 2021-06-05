@@ -1,0 +1,25 @@
+apply from: "${rootDir}/gradle/repos.gradle"
+
+apply plugin: "java"
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+apply from: "${rootDir}/gradle/libs.gradle"
+
+dependencies {
+    compileOnly(libs.lombok)
+    annotationProcessor(libs.lombok)
+
+    testCompileOnly(libs.lombok)
+    testAnnotationProcessor(libs.lombok)
+
+    testCompile(libs.junit.api)
+    testCompile(libs.junit.engine)
+    testCompile(libs.mockito.core)
+    testCompile(libs.assertj.core)
+}
+
+test {
+    useJUnitPlatform()
+}
