@@ -20,7 +20,7 @@ public class Env implements Environmentable {
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    private final Map<String, Taggable> tagMappingContainerMap = new HashMap<>();
+    private final Map<String, Taggable> tagMap = new HashMap<>();
 
     @Override
     public String getCode() {
@@ -56,12 +56,11 @@ public class Env implements Environmentable {
 
     private Taggable ensureTag(Taggable tag) {
         String tagName = tag.getName();
-        if (tagMappingContainerMap.containsKey(tagName)) {
-            return tagMappingContainerMap.get(tagName);
+        if (tagMap.containsKey(tagName)) {
+            return tagMap.get(tagName);
         }
-        Tag container = new Tag();
-        tagMappingContainerMap.put(tagName, container);
-        tags.add(container);
-        return container;
+        tagMap.put(tagName, tag);
+        tags.add(tag);
+        return tag;
     }
 }

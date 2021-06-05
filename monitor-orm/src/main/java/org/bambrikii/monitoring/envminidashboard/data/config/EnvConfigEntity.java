@@ -1,9 +1,5 @@
 package org.bambrikii.monitoring.envminidashboard.data.config;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.bambrikii.monitoring.envminidashboard.model.Environmentable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,11 +11,9 @@ import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
 @Entity
 @Table
-public class EnvConfigEntity implements Environmentable<TagConfigEntity> {
+public class EnvConfigEntity {
     @Id
     @GeneratedValue(generator = "ENVIRONMENT_SEQ", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "ENVIRONMENT_SEQ", sequenceName = "ENVIRONMENT_SEQ")
@@ -28,4 +22,28 @@ public class EnvConfigEntity implements Environmentable<TagConfigEntity> {
     private String code;
     @OneToMany
     private List<TagConfigEntity> tags = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public List<TagConfigEntity> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<TagConfigEntity> tags) {
+        this.tags = tags;
+    }
 }

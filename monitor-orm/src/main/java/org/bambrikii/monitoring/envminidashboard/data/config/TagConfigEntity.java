@@ -1,9 +1,5 @@
 package org.bambrikii.monitoring.envminidashboard.data.config;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.bambrikii.monitoring.envminidashboard.model.Taggable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,11 +11,9 @@ import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
 @Entity
 @Table
-public class TagConfigEntity implements Taggable<MetricsFamilyConfigEntity, ConnConfigEntity> {
+public class TagConfigEntity {
     @Id
     @GeneratedValue(generator = "TAG_SEQ", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "TAG_SEQ", sequenceName = "TAG_SEQ")
@@ -29,8 +23,40 @@ public class TagConfigEntity implements Taggable<MetricsFamilyConfigEntity, Conn
     private String name;
 
     @ManyToMany
-    private List<MetricsFamilyConfigEntity> metricsFamilies = new ArrayList<>();
+    private List<MetricsFamilyConfigEntity> metricsNamespaces = new ArrayList<>();
 
     @ManyToMany
-    private List<ConnConfigEntity> connectionSettings = new ArrayList<>();
+    private List<ConnConfigEntity> connConfigs = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<MetricsFamilyConfigEntity> getMetricsNamespaces() {
+        return metricsNamespaces;
+    }
+
+    public void setMetricsNamespaces(List<MetricsFamilyConfigEntity> metricsNamespaces) {
+        this.metricsNamespaces = metricsNamespaces;
+    }
+
+    public List<ConnConfigEntity> getConnConfigs() {
+        return connConfigs;
+    }
+
+    public void setConnConfigs(List<ConnConfigEntity> connConfigs) {
+        this.connConfigs = connConfigs;
+    }
 }

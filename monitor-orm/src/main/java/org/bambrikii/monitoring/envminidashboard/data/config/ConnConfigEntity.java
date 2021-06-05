@@ -2,7 +2,6 @@ package org.bambrikii.monitoring.envminidashboard.data.config;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.bambrikii.monitoring.envminidashboard.model.ConnConfig;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,8 +12,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.SequenceGenerator;
 
-@Getter
-@Setter
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class ConnConfigEntity {
@@ -28,4 +25,28 @@ public abstract class ConnConfigEntity {
 
     @Column(nullable = false)
     private Integer port = 22;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public Integer getPort() {
+        return port;
+    }
+
+    public void setPort(Integer port) {
+        this.port = port;
+    }
 }

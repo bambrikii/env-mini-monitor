@@ -10,8 +10,8 @@ import java.util.List;
 @Setter
 public class Tag implements Taggable {
     private String name;
-    private List<MetricsNamespaceable> metricsFamilies = new ArrayList<>();
-    private List<ConnConfig> connectionSettings = new ArrayList<>();
+    private List<MetricsNamespaceable> metricsNamespaces = new ArrayList<>();
+    private List<ConnConfig> connConfigs = new ArrayList<>();
 
     @Override
     public String getName() {
@@ -24,19 +24,19 @@ public class Tag implements Taggable {
 
     @Override
     public List<MetricsNamespaceable> getMetricsNamespaces() {
-        return metricsFamilies;
+        return metricsNamespaces;
     }
 
-    public void setMetricsFamilies(List<MetricsNamespaceable> metricsFamilies) {
-        this.metricsFamilies = metricsFamilies;
+    public void setMetricsNamespaces(List<MetricsNamespaceable> metricsNamespaces) {
+        this.metricsNamespaces = metricsNamespaces;
     }
 
     @Override
     public List<ConnConfig> getConnConfigs() {
-        return connectionSettings;
+        return connConfigs;
     }
 
-    public void setConnectionSettings(List<ConnConfig> connectionSettings) {
-        this.connectionSettings = connectionSettings;
+    public void setConnConfigs(List<ConnConfig> connConfigs) {
+        this.connConfigs = connConfigs;
     }
 }

@@ -34,6 +34,7 @@ public class DashboardResult implements ProbeResultCollector {
     public void env(String envCode) {
         if (!envs.containsKey(envCode)) {
             EnvironmentResult env = new EnvironmentResult();
+            env.setCode(envCode);
             envs.put(envCode, env);
             this.env = env;
         }

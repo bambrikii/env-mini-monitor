@@ -9,6 +9,9 @@ public class MetricsNamespace implements MetricsNamespaceable {
     @Setter(AccessLevel.NONE)
     private String code;
 
+    public MetricsNamespace() {
+    }
+
     public MetricsNamespace(String code) {
         this.code = code;
     }
