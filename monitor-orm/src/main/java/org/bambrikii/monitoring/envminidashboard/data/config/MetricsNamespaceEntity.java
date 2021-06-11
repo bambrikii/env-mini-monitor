@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public class MetricsFamilyConfigEntity {
+public class MetricsNamespaceEntity {
     @Id
     @GeneratedValue(generator = "METRICS_FAMILY_SEQ", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "METRICS_FAMILY_SEQ", sequenceName = "METRICS_FAMILY_SEQ")

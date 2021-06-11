@@ -2,7 +2,7 @@ package org.bambrikii.monitoring.envminidashboard.impl.metrics;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.bambrikii.monitoring.envminidashboard.result.Metric;
+import org.bambrikii.monitoring.envminidashboard.model.Metric;
 
 import static org.bambrikii.monitoring.envminidashboard.impl.metrics.MetricsRegistry.APP_LOGS_NAMESPACE;
 

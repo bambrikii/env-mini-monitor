@@ -12,19 +12,19 @@ import java.util.List;
 
 @Entity
 @Table
-public class DashboardConfigEntity {
+public class DashboardEntity {
     @Id
     @GeneratedValue(generator = "DASHBOARD_SEQ", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "DASHBOARD_SEQ", sequenceName = "DASHBOARD_SEQ")
     private Long id;
     @OneToMany
-    private List<EnvConfigEntity> envs = new ArrayList<>();
+    private List<EnvEntity> envs = new ArrayList<>();
 
-    public List<EnvConfigEntity> getEnvs() {
+    public List<EnvEntity> getEnvs() {
         return envs;
     }
 
-    public void setEnvs(List<EnvConfigEntity> envs) {
+    public void setEnvs(List<EnvEntity> envs) {
         this.envs = envs;
     }
 }

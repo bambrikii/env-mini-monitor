@@ -1,14 +1,14 @@
 package org.bambrikii.monitoring.envminidashboard.impl.connectors;
 
 import org.bambrikii.monitoring.envminidashboard.impl.connectors.http.HttpConnConfig;
-import org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh.SshHostConnCfg;
+import org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh.SshHostConnConfigCfg;
 import org.bambrikii.monitoring.envminidashboard.impl.connectors.windows.WinConnConfig;
 
 public class ConnectionSettingsFactory {
     private ConnectionSettingsFactory() {
     }
 
-    public SshHostConnCfg sshConnectionSetting() {
+    public SshHostConnConfigCfg sshConnectionSetting() {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 

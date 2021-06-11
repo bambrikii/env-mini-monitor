@@ -1,16 +1,16 @@
 package org.bambrikii.monitoring.envminidashboard.webapp.converters;
 
-import org.bambrikii.monitoring.envminidashboard.data.config.DashboardConfigEntity;
-import org.bambrikii.monitoring.envminidashboard.data.config.EnvConfigEntity;
+import org.bambrikii.monitoring.envminidashboard.data.config.DashboardEntity;
+import org.bambrikii.monitoring.envminidashboard.data.config.EnvEntity;
 import org.bambrikii.monitoring.envminidashboard.model.Dashboard;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class DashboardEntityConverter {
-    public static Dashboard convert(DashboardConfigEntity entity) {
+    public static Dashboard convert(DashboardEntity entity) {
         Dashboard dashboard = new Dashboard();
-        List<EnvConfigEntity> envs = entity.getEnvs();
+        List<EnvEntity> envs = entity.getEnvs();
         dashboard
                 .setEnvs(envs
                         .stream()

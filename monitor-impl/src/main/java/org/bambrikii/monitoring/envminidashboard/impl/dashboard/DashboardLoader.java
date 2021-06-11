@@ -3,24 +3,30 @@ package org.bambrikii.monitoring.envminidashboard.impl.dashboard;
 import org.bambrikii.monitoring.envminidashboard.connectors.AbstractConnector;
 import org.bambrikii.monitoring.envminidashboard.connectors.AbstractProbe;
 import org.bambrikii.monitoring.envminidashboard.connectors.ConnectionPool;
-import org.bambrikii.monitoring.envminidashboard.model.ConnConfig;
-import org.bambrikii.monitoring.envminidashboard.model.Dashboardable;
-import org.bambrikii.monitoring.envminidashboard.model.Environmentable;
-import org.bambrikii.monitoring.envminidashboard.model.Taggable;
-import org.bambrikii.monitoring.envminidashboard.result.DashboardResult;
+import org.bambrikii.monitoring.envminidashboard.model.api.ConnConfiggable;
+import org.bambrikii.monitoring.envminidashboard.model.api.Dashboardable;
+import org.bambrikii.monitoring.envminidashboard.model.api.Environmentable;
+import org.bambrikii.monitoring.envminidashboard.model.api.MetricLoggable;
+import org.bambrikii.monitoring.envminidashboard.model.api.PhysicalConnectable;
+import org.bambrikii.monitoring.envminidashboard.model.api.Taggable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DashboardLoader {
+public class DashboardLoader<
+        E extends Environmentable<P>,
+        P extends PhysicalConnectable<T, C, M>,
+        T extends Taggable,
+        C extends ConnConfiggable,
+        M extends MetricLoggable
+        > {
     private final ConnectionPool connPool = new ConnectionPool();
     private final List<AbstractProbe> probes = new ArrayList<>();
-    private final DashboardResult collector = new DashboardResult();
 
     public DashboardLoader() {
     }
 
-    public DashboardLoader connector(ConnConfig connConfig, AbstractConnector connector) {
+    public DashboardLoader connector(ConnConfiggable connConfig, AbstractConnector connector) {
         connPool.connector(connConfig, connector);
         return this;
     }
@@ -30,18 +36,14 @@ public class DashboardLoader {
         return this;
     }
 
-    public DashboardResult load(Dashboardable dashboard) {
-        for (Environmentable env : (List<Environmentable>) dashboard.getEnvs()) {
-            collector.env(env.getCode());
-            for (Taggable tag : (List<Taggable>) env.getTags()) {
-                collector.tag(tag.getName());
-                for (ConnConfig config : (List<ConnConfig>) tag.getConnConfigs()) {
-                    for (AbstractProbe probe : this.probes) {
-                        probe.load(connPool, config, collector);
-                    }
+    public void load(Dashboardable<E> dashboard) {
+        for (E env : dashboard.getEnvs()) {
+            for (P conn : env.getConnections()) {
+                C config = conn.getConfig();
+                for (AbstractProbe probe : this.probes) {
+                    probe.load(connPool, config, conn);
                 }
             }
         }
-        return collector;
     }
 }

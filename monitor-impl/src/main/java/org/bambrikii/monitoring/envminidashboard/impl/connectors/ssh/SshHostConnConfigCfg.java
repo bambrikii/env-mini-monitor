@@ -1,16 +1,10 @@
 package org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import org.bambrikii.monitoring.envminidashboard.model.HostConnConfig;
 
 import java.util.Objects;
 
-@Getter
-@Setter
-@EqualsAndHashCode(callSuper = true)
-public class SshHostConnCfg extends HostConnConfig {
+public class SshHostConnConfigCfg extends HostConnConfig {
     private String username;
     private String password;
 
@@ -35,7 +29,7 @@ public class SshHostConnCfg extends HostConnConfig {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        SshHostConnCfg that = (SshHostConnCfg) o;
+        SshHostConnConfigCfg that = (SshHostConnConfigCfg) o;
         return Objects.equals(username, that.username) && Objects.equals(password, that.password);
     }
 

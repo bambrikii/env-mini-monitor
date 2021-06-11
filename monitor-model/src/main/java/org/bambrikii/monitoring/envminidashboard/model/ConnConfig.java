@@ -1,4 +1,6 @@
 package org.bambrikii.monitoring.envminidashboard.model;
 
-public interface ConnConfig {
+import org.bambrikii.monitoring.envminidashboard.model.api.ConnConfiggable;
+
+public class ConnConfig implements ConnConfiggable {
 }

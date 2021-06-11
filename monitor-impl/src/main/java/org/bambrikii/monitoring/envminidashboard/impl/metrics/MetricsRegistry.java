@@ -1,7 +1,7 @@
 package org.bambrikii.monitoring.envminidashboard.impl.metrics;
 
 import org.bambrikii.monitoring.envminidashboard.connectors.AbstractProbe;
-import org.bambrikii.monitoring.envminidashboard.result.Metric;
+import org.bambrikii.monitoring.envminidashboard.model.Metric;
 
 import java.util.ArrayList;
 import java.util.List;

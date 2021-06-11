@@ -1,7 +1,7 @@
 package org.bambrikii.monitoring.envminidashboard.impl.connectors.http;
 
 import org.bambrikii.monitoring.envminidashboard.connectors.AbstractConnector;
-import org.bambrikii.monitoring.envminidashboard.connectors.ProbeAction;
+import org.bambrikii.monitoring.envminidashboard.connectors.api.ProbeAction;
 
 public class HttpConnector extends AbstractConnector<HttpConnConfig> {
     @Override

@@ -1,12 +1,11 @@
 package org.bambrikii.monitoring.envminidashboard.connectors;
 
-import lombok.extern.java.Log;
-import org.bambrikii.monitoring.envminidashboard.model.ConnConfig;
+import org.bambrikii.monitoring.envminidashboard.connectors.api.ConnectorAdapter;
+import org.bambrikii.monitoring.envminidashboard.model.api.ConnConfiggable;
 
 import java.util.logging.Logger;
 
-@Log
-public abstract class AbstractConnector<C extends ConnConfig> implements ConnectorAdapter, AutoCloseable {
+public abstract class AbstractConnector<C extends ConnConfiggable> implements ConnectorAdapter, AutoCloseable {
     private static Logger log = Logger.getLogger(AbstractConnector.class.getName());
 
     private C config;

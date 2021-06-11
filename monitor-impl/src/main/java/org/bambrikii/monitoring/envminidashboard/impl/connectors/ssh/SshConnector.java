@@ -3,9 +3,9 @@ package org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSchException;
-import org.bambrikii.monitoring.envminidashboard.connectors.ConnectorAdapter;
-import org.bambrikii.monitoring.envminidashboard.connectors.ProbeAction;
-import org.bambrikii.monitoring.envminidashboard.connectors.ProbeActionPerformer;
+import org.bambrikii.monitoring.envminidashboard.connectors.api.ConnectorAdapter;
+import org.bambrikii.monitoring.envminidashboard.connectors.api.ProbeAction;
+import org.bambrikii.monitoring.envminidashboard.connectors.api.ProbeActionPerformer;
 
 import java.io.IOException;
 import java.io.InputStream;

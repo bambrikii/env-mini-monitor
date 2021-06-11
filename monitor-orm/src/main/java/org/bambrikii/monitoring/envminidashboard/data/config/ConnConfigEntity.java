@@ -1,7 +1,6 @@
 package org.bambrikii.monitoring.envminidashboard.data.config;
 
-import lombok.Getter;
-import lombok.Setter;
+import org.bambrikii.monitoring.envminidashboard.model.api.ConnConfiggable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,11 +9,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class ConnConfigEntity {
+public abstract class ConnConfigEntity implements ConnConfiggable {
     @Id
     @GeneratedValue(generator = "CONN_SETTINGS_SEQ", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "CONN_SETTINGS_SEQ", sequenceName = "CONN_SETTINGS_SEQ")
@@ -25,6 +27,9 @@ public abstract class ConnConfigEntity {
 
     @Column(nullable = false)
     private Integer port = 22;
+
+    @ManyToMany
+    private List<TagEntity> tags = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -48,5 +53,13 @@ public abstract class ConnConfigEntity {
 
     public void setPort(Integer port) {
         this.port = port;
+    }
+
+    public List<TagEntity> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<TagEntity> tags) {
+        this.tags = tags;
     }
 }

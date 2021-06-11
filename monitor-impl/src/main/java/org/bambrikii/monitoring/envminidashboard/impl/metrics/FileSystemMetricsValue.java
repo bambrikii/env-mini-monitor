@@ -1,10 +1,5 @@
 package org.bambrikii.monitoring.envminidashboard.impl.metrics;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class FileSystemMetricsValue {
     private String path;
     private Long totalSpace;

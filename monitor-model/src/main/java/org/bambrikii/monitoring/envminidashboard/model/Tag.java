@@ -2,15 +2,15 @@ package org.bambrikii.monitoring.envminidashboard.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.bambrikii.monitoring.envminidashboard.model.api.Taggable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
-public class Tag implements Taggable {
+public class Tag implements Taggable<MetricsNamespace, ConnConfig> {
     private String name;
-    private List<MetricsNamespaceable> metricsNamespaces = new ArrayList<>();
     private List<ConnConfig> connConfigs = new ArrayList<>();
 
     @Override
@@ -23,20 +23,16 @@ public class Tag implements Taggable {
     }
 
     @Override
-    public List<MetricsNamespaceable> getMetricsNamespaces() {
-        return metricsNamespaces;
-    }
-
-    public void setMetricsNamespaces(List<MetricsNamespaceable> metricsNamespaces) {
-        this.metricsNamespaces = metricsNamespaces;
-    }
-
-    @Override
     public List<ConnConfig> getConnConfigs() {
         return connConfigs;
     }
 
     public void setConnConfigs(List<ConnConfig> connConfigs) {
         this.connConfigs = connConfigs;
+    }
+
+    @Override
+    public String toString() {
+        return "Tag{" + "name='" + name + '\'' + ", connConfigs=" + connConfigs + '}';
     }
 }

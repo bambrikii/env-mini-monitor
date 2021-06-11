@@ -1,11 +1,16 @@
 package org.bambrikii.monitoring.envminidashboard.data.config;
 
+import org.bambrikii.monitoring.envminidashboard.data.statistics.MetricLogEntity;
+import org.bambrikii.monitoring.envminidashboard.model.api.Taggable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.ArrayList;
@@ -13,7 +18,7 @@ import java.util.List;
 
 @Entity
 @Table
-public class TagConfigEntity {
+public class TagEntity implements Taggable {
     @Id
     @GeneratedValue(generator = "TAG_SEQ", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "TAG_SEQ", sequenceName = "TAG_SEQ")
@@ -22,11 +27,11 @@ public class TagConfigEntity {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @ManyToMany
-    private List<MetricsFamilyConfigEntity> metricsNamespaces = new ArrayList<>();
-
-    @ManyToMany
+    @ManyToMany(mappedBy = "tags")
     private List<ConnConfigEntity> connConfigs = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<MetricLogEntity> statistics = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -44,19 +49,19 @@ public class TagConfigEntity {
         this.name = name;
     }
 
-    public List<MetricsFamilyConfigEntity> getMetricsNamespaces() {
-        return metricsNamespaces;
-    }
-
-    public void setMetricsNamespaces(List<MetricsFamilyConfigEntity> metricsNamespaces) {
-        this.metricsNamespaces = metricsNamespaces;
-    }
-
     public List<ConnConfigEntity> getConnConfigs() {
         return connConfigs;
     }
 
     public void setConnConfigs(List<ConnConfigEntity> connConfigs) {
         this.connConfigs = connConfigs;
+    }
+
+    public List<MetricLogEntity> getStatistics() {
+        return statistics;
+    }
+
+    public void setStatistics(List<MetricLogEntity> statistics) {
+        this.statistics = statistics;
     }
 }

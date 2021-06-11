@@ -1,4 +1,4 @@
-package org.bambrikii.monitoring.envminidashboard.connectors;
+package org.bambrikii.monitoring.envminidashboard.connectors.api;
 
 import java.util.function.Supplier;
 

@@ -13,15 +13,15 @@ import java.util.List;
 
 @Entity
 @Table
-public class EnvConfigEntity {
+public class EnvEntity {
     @Id
-    @GeneratedValue(generator = "ENVIRONMENT_SEQ", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "ENVIRONMENT_SEQ", sequenceName = "ENVIRONMENT_SEQ")
+    @GeneratedValue(generator = "ENV_SEQ", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "ENV_SEQ", sequenceName = "ENV_SEQ")
     private Long id;
     @Column(nullable = false, unique = true)
     private String code;
     @OneToMany
-    private List<TagConfigEntity> tags = new ArrayList<>();
+    private List<PhysicalConnEntity> connections = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -39,11 +39,11 @@ public class EnvConfigEntity {
         this.code = code;
     }
 
-    public List<TagConfigEntity> getTags() {
-        return tags;
+    public List<PhysicalConnEntity> getConnections() {
+        return connections;
     }
 
-    public void setTags(List<TagConfigEntity> tags) {
-        this.tags = tags;
+    public void setConnections(List<PhysicalConnEntity> connections) {
+        this.connections = connections;
     }
 }

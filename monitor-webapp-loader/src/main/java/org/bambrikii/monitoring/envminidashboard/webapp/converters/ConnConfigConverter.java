@@ -5,12 +5,12 @@ import org.bambrikii.monitoring.envminidashboard.data.config.HttpConnConfigEntit
 import org.bambrikii.monitoring.envminidashboard.data.config.WinConnConfigEntity;
 import org.bambrikii.monitoring.envminidashboard.data.config.SshConnConfigEntity;
 import org.bambrikii.monitoring.envminidashboard.impl.connectors.http.HttpConnConfig;
-import org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh.SshHostConnCfg;
+import org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh.SshHostConnConfigCfg;
 import org.bambrikii.monitoring.envminidashboard.impl.connectors.windows.WinConnConfig;
-import org.bambrikii.monitoring.envminidashboard.model.ConnConfig;
+import org.bambrikii.monitoring.envminidashboard.model.api.ConnConfiggable;
 
 public class ConnConfigConverter {
-    public static ConnConfig convert(ConnConfigEntity entity) {
+    public static ConnConfiggable convert(ConnConfigEntity entity) {
         if (entity instanceof SshConnConfigEntity) {
             return convert((SshConnConfigEntity) entity);
         }
@@ -39,9 +39,9 @@ public class ConnConfigConverter {
         return connConfig;
     }
 
-    private static SshHostConnCfg convert(SshConnConfigEntity entity) {
+    private static SshHostConnConfigCfg convert(SshConnConfigEntity entity) {
         SshConnConfigEntity entity2 = entity;
-        SshHostConnCfg connConfig = new SshHostConnCfg();
+        SshHostConnConfigCfg connConfig = new SshHostConnConfigCfg();
         connConfig.setHost(entity2.getHost());
         connConfig.setPort(entity2.getPort());
         connConfig.setUsername(entity2.getUsername());

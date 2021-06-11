@@ -1,11 +1,10 @@
 package org.bambrikii.monitoring.envminidashboard.webapp.loader;
 
-import org.bambrikii.monitoring.envminidashboard.data.config.DashboardConfigEntity;
+import org.bambrikii.monitoring.envminidashboard.data.config.DashboardEntity;
 import org.bambrikii.monitoring.envminidashboard.impl.dashboard.DashboardLoader;
 import org.bambrikii.monitoring.envminidashboard.impl.loader.LinuxSysProbe;
 import org.bambrikii.monitoring.envminidashboard.impl.loader.WinSysProbe;
 import org.bambrikii.monitoring.envminidashboard.impl.loader.WindowsAppLogsProbe;
-import org.bambrikii.monitoring.envminidashboard.result.DashboardResult;
 import org.bambrikii.monitoring.envminidashboard.webapp.converters.DashboardEntityConverter;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +23,7 @@ public class DashboardService {
     }
 
     public DashboardResult readDashboardMetrics() {
-        List<DashboardConfigEntity> configEntities = dashboardConfigService.retrieveConfigs();
+        List<DashboardEntity> configEntities = dashboardConfigService.retrieveConfigs();
 
         return loader.load(configEntities
                 .stream()

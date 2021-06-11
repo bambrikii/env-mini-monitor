@@ -1,23 +1,18 @@
 package org.bambrikii.monitoring.envminidashboard.model;
 
-import lombok.AccessLevel;
-import lombok.Setter;
 import org.bambrikii.monitoring.envminidashboard.model.api.MetricsNamespaceable;
 
 import java.util.Objects;
 
-public class MetricsNamespace implements MetricsNamespaceable {
-    @Setter(AccessLevel.NONE)
+public class Metric {
     private String code;
+    private MetricsNamespaceable namespace;
 
-    public MetricsNamespace() {
-    }
-
-    public MetricsNamespace(String code) {
+    public Metric(String code, MetricsNamespaceable namespace) {
         this.code = code;
+        this.namespace = namespace;
     }
 
-    @Override
     public String getCode() {
         return code;
     }
@@ -26,21 +21,29 @@ public class MetricsNamespace implements MetricsNamespaceable {
         this.code = code;
     }
 
+    public MetricsNamespaceable getNamespace() {
+        return namespace;
+    }
+
+    public void setNamespace(MetricsNamespaceable namespace) {
+        this.namespace = namespace;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MetricsNamespace that = (MetricsNamespace) o;
-        return Objects.equals(code, that.code);
+        Metric metric = (Metric) o;
+        return Objects.equals(code, metric.code) && Objects.equals(namespace, metric.namespace);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(code);
+        return Objects.hash(code, namespace);
     }
 
     @Override
     public String toString() {
-        return "MetricsNamespace{" + "code='" + code + '\'' + '}';
+        return "Metric{" + "code='" + code + '\'' + ", namespace=" + namespace + '}';
     }
 }

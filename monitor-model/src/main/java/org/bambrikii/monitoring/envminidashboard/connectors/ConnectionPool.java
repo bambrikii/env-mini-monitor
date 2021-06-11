@@ -1,6 +1,6 @@
 package org.bambrikii.monitoring.envminidashboard.connectors;
 
-import org.bambrikii.monitoring.envminidashboard.model.ConnConfig;
+import org.bambrikii.monitoring.envminidashboard.model.api.ConnConfiggable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,9 +9,9 @@ import java.util.logging.Logger;
 public class ConnectionPool {
     private static Logger log = Logger.getLogger(ConnectionPool.class.getName());
 
-    private Map<ConnConfig, AbstractConnector> connPool = new HashMap<>();
+    private Map<ConnConfiggable, AbstractConnector> connPool = new HashMap<>();
 
-    public ConnectionPool connector(ConnConfig connConfig, AbstractConnector connector) {
+    public ConnectionPool connector(ConnConfiggable connConfig, AbstractConnector connector) {
         if (connPool.containsKey(connConfig)) {
             log.warning("Configuration already exists for " + connConfig);
             return this;
@@ -22,14 +22,14 @@ public class ConnectionPool {
         return this;
     }
 
-    private void ensureConn(ConnConfig config, AbstractConnector conn) {
+    private void ensureConn(ConnConfiggable config, AbstractConnector conn) {
         conn.init(config);
         if (!connPool.containsKey(config)) {
             connPool.put(config, conn);
         }
     }
 
-    public <C extends AbstractConnector> C findOne(ConnConfig config) {
+    public <C extends AbstractConnector> C findOne(ConnConfiggable config) {
         if (!connPool.containsKey(config)) {
             throw new IllegalArgumentException("No connectionSetting found for " + config + "!");
         }
@@ -40,7 +40,7 @@ public class ConnectionPool {
         return (C) conn;
     }
 
-    public void close(ConnConfig config) {
+    public void close(ConnConfiggable config) {
         AbstractConnector conn = connPool.get(config);
         conn.close();
     }

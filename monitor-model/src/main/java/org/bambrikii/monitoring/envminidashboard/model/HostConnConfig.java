@@ -1,17 +1,8 @@
 package org.bambrikii.monitoring.envminidashboard.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 import java.util.Objects;
 
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
-public abstract class HostConnConfig implements ConnConfig {
+public abstract class HostConnConfig extends ConnConfig {
     private String host;
     private Integer port = 22;
 
@@ -32,11 +23,6 @@ public abstract class HostConnConfig implements ConnConfig {
     }
 
     @Override
-    public String toString() {
-        return "HostConnConfig{" + "host='" + host + '\'' + ", port=" + port + '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -47,5 +33,10 @@ public abstract class HostConnConfig implements ConnConfig {
     @Override
     public int hashCode() {
         return Objects.hash(host, port);
+    }
+
+    @Override
+    public String toString() {
+        return "HostConnConfig{" + "host='" + host + '\'' + ", port=" + port + '}';
     }
 }

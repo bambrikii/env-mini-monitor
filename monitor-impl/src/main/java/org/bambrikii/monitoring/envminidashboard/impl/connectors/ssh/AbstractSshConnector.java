@@ -3,14 +3,12 @@ package org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
-import lombok.extern.java.Log;
 import org.bambrikii.monitoring.envminidashboard.connectors.AbstractConnector;
 
 import java.util.Properties;
 import java.util.logging.Logger;
 
-@Log
-public abstract class AbstractSshConnector extends AbstractConnector<SshHostConnCfg> {
+public abstract class AbstractSshConnector extends AbstractConnector<SshHostConnConfigCfg> {
     private static Logger log = Logger.getLogger(AbstractSshConnector.class.getName());
 
     private Session session;
@@ -24,7 +22,7 @@ public abstract class AbstractSshConnector extends AbstractConnector<SshHostConn
         if (session != null && session.isConnected()) {
             return;
         }
-        SshHostConnCfg config = getConfig();
+        SshHostConnConfigCfg config = getConfig();
         String host = config.getHost();
         int port = config.getPort();
         String user = config.getUsername();

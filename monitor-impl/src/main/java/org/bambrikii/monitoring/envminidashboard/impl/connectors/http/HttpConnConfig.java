@@ -1,15 +1,9 @@
 package org.bambrikii.monitoring.envminidashboard.impl.connectors.http;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import org.bambrikii.monitoring.envminidashboard.model.HostConnConfig;
 
 import java.util.Objects;
 
-@Getter
-@Setter
-@EqualsAndHashCode(callSuper = true)
 public class HttpConnConfig extends HostConnConfig {
     private String urlPath;
     private String method;

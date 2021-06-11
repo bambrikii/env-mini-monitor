@@ -1,8 +1,8 @@
 package org.bambrikii.monitoring.envminidashboard.impl.connectors.windows;
 
 import org.bambrikii.monitoring.envminidashboard.connectors.AbstractConnector;
-import org.bambrikii.monitoring.envminidashboard.connectors.ProbeAction;
-import org.bambrikii.monitoring.envminidashboard.connectors.ProbeActionPerformer;
+import org.bambrikii.monitoring.envminidashboard.connectors.api.ProbeAction;
+import org.bambrikii.monitoring.envminidashboard.connectors.api.ProbeActionPerformer;
 
 import java.util.function.Supplier;
 
