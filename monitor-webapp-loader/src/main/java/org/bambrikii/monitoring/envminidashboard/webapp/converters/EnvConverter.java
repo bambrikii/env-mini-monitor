@@ -1,6 +1,6 @@
 package org.bambrikii.monitoring.envminidashboard.webapp.converters;
 
-import org.bambrikii.monitoring.envminidashboard.data.config.EnvEntity;
+import org.bambrikii.monitoring.envminidashboard.orm.model.EnvEntity;
 import org.bambrikii.monitoring.envminidashboard.model.Env;
 
 import java.util.stream.Collectors;

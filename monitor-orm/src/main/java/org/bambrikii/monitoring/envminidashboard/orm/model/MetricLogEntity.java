@@ -1,5 +1,6 @@
-package org.bambrikii.monitoring.envminidashboard.data.statistics;
+package org.bambrikii.monitoring.envminidashboard.orm.model;
 
+import lombok.ToString;
 import org.bambrikii.monitoring.envminidashboard.model.api.MetricLoggable;
 
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.Calendar;
 
+@ToString
 @Entity
 @Table
 public class MetricLogEntity implements MetricLoggable {
@@ -23,7 +25,7 @@ public class MetricLogEntity implements MetricLoggable {
     private String code;
 
     @Column
-    private Object value;
+    private String value;
 
     @Column
     private Calendar time;
@@ -44,11 +46,11 @@ public class MetricLogEntity implements MetricLoggable {
         this.code = code;
     }
 
-    public Object getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(Object value) {
+    public void setValue(String value) {
         this.value = value;
     }
 

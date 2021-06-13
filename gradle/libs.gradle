@@ -8,7 +8,24 @@ ext.libs = [
                 core: "org.assertj:assertj-core:3.11.1"
         ],
         junit  : [
-                api   : "org.junit.jupiter:junit-jupiter-api:5.6.0",
-                engine: "org.junit.jupiter:junit-jupiter-engine:5.6.0"
-        ]
+                api    : "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}",
+                engine : "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}",
+                params : "org.junit.jupiter:junit-jupiter-params:${jUnitVersion}",
+                vintage: "org.junit.vintage:junit-vintage-engine:${jUnitVersion}"
+        ],
+        spring : [
+                boot: [
+                        starter: [
+                                test: "org.springframework.boot:spring-boot-starter-test:${springBootStarterVersion}",
+                                data: [
+                                        jpa: "org.springframework.boot:spring-boot-starter-data-jpa:${springBootStarterVersion}"
+                                ]
+                        ]
+                ],
+                data: [
+                        jpa    : "org.springframework.data:spring-data-jpa:${springBootVersion}",
+                        commons: "org.springframework.data:spring-data-commons:${springBootVersion}"
+                ]
+        ],
+        h2db   : "com.h2database:h2:1.4.199"
 ]

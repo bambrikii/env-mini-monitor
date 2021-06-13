@@ -1,9 +1,9 @@
 package org.bambrikii.monitoring.envminidashboard.webapp.converters;
 
-import org.bambrikii.monitoring.envminidashboard.data.config.ConnConfigEntity;
-import org.bambrikii.monitoring.envminidashboard.data.config.HttpConnConfigEntity;
-import org.bambrikii.monitoring.envminidashboard.data.config.WinConnConfigEntity;
-import org.bambrikii.monitoring.envminidashboard.data.config.SshConnConfigEntity;
+import org.bambrikii.monitoring.envminidashboard.orm.model.ConnConfigEntity;
+import org.bambrikii.monitoring.envminidashboard.orm.model.HttpConnConfigEntity;
+import org.bambrikii.monitoring.envminidashboard.orm.model.WinConnConfigEntity;
+import org.bambrikii.monitoring.envminidashboard.orm.model.SshConnConfigEntity;
 import org.bambrikii.monitoring.envminidashboard.impl.connectors.http.HttpConnConfig;
 import org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh.SshHostConnConfigCfg;
 import org.bambrikii.monitoring.envminidashboard.impl.connectors.windows.WinConnConfig;

@@ -1,8 +1,12 @@
 apply from: "${rootDir}/gradle/java.gradle"
 
 dependencies {
-    compile project(":monitor-model")
+    compile(project(":monitor-model"))
+    compile(libs.spring.boot.starter.data.jpa)
+    compile(libs.spring.data.jpa)
 
-    compile("org.springframework.boot:spring-boot-starter-data-jpa:${springBootStarterVersion}")
-    compile("com.h2database:h2:1.4.199")
+    integrationTestCompile(libs.spring.boot.starter.test) {
+        exclude group: "junit", module: "junit"
+    }
+    integrationTestCompile(libs.h2db)
 }

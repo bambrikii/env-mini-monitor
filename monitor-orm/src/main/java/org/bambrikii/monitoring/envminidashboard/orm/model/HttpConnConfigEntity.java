@@ -1,4 +1,4 @@
-package org.bambrikii.monitoring.envminidashboard.data.config;
+package org.bambrikii.monitoring.envminidashboard.orm.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

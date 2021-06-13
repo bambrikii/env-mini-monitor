@@ -1,6 +1,6 @@
 package org.bambrikii.monitoring.envminidashboard.webapp.converters;
 
-import org.bambrikii.monitoring.envminidashboard.data.config.MetricsNamespaceEntity;
+import org.bambrikii.monitoring.envminidashboard.orm.model.MetricsNamespaceEntity;
 import org.bambrikii.monitoring.envminidashboard.model.MetricsNamespace;
 
 public class MetricsNamespaceConverter {

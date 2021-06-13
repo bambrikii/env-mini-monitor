@@ -1,12 +1,16 @@
-package org.bambrikii.monitoring.envminidashboard.data.config;
+package org.bambrikii.monitoring.envminidashboard.orm.model;
 
-import org.bambrikii.monitoring.envminidashboard.data.statistics.MetricLogEntity;
+import lombok.ToString;
 import org.bambrikii.monitoring.envminidashboard.model.Metric;
 import org.bambrikii.monitoring.envminidashboard.model.api.PhysicalConnectable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@ToString
 @Entity
 @Table
 public class PhysicalConnEntity implements PhysicalConnectable<
@@ -21,13 +26,18 @@ public class PhysicalConnEntity implements PhysicalConnectable<
         ConnConfigEntity,
         MetricLogEntity
         > {
+    @Id
+    @GeneratedValue(generator = "PHYSICAL_CONN_SEQ", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "PHYSICAL_CONN_SEQ", sequenceName = "PHYSICAL_CONN_SEQ")
     private Long id;
 
     @ManyToOne
     private ConnConfigEntity config;
     @ManyToMany
     private List<TagEntity> tags = new ArrayList<>();
+    @ManyToMany
     private Map<String, TagEntity> tagMap = new HashMap<>();
+    @ManyToMany
     private List<MetricLogEntity> metricLogs = new ArrayList<>();
 
     private TagEntity ensureTag(TagEntity tag) {
@@ -74,7 +84,7 @@ public class PhysicalConnEntity implements PhysicalConnectable<
     public void accept(Metric metric, Object value, Calendar time) {
         MetricLogEntity logEntity = new MetricLogEntity();
         logEntity.setCode(metric.getCode());
-        logEntity.setValue(value);
+        logEntity.setValue(String.valueOf(value));
         logEntity.setTime(time);
         metricLogs.add(logEntity);
     }

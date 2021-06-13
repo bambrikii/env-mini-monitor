@@ -7,6 +7,24 @@ targetCompatibility = 11
 
 apply from: "${rootDir}/gradle/libs.gradle"
 
+sourceSets {
+    integrationTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDirs = ['src/integrationTest/java']
+        }
+        resources {
+            srcDirs = ["src/main/resources", "src/test/resources", "src/integrationTest/resources"]
+        }
+    }
+}
+
+configurations {
+    integrationTestCompile.extendsFrom compileClasspath
+    integrationTestCompile.extendsFrom testCompileClasspath
+}
+
 dependencies {
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
@@ -16,10 +34,22 @@ dependencies {
 
     testCompile(libs.junit.api)
     testCompile(libs.junit.engine)
-    testCompile(libs.mockito.core)
+    testCompile(libs.junit.params)
+    testCompile(libs.junit.vintage)
     testCompile(libs.assertj.core)
+    testCompile(libs.mockito.core)
 }
 
 test {
     useJUnitPlatform()
 }
+
+task integrationTest(type: Test) {
+    group = "verification"
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+//    outputs.upToDateWhen { false }
+    shouldRunAfter test
+}
+
+apply from: "${rootDir}/gradle/idea.gradle"

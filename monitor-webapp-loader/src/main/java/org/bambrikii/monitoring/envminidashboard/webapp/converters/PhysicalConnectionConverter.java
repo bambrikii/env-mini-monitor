@@ -1,6 +1,6 @@
 package org.bambrikii.monitoring.envminidashboard.webapp.converters;
 
-import org.bambrikii.monitoring.envminidashboard.data.config.PhysicalConnEntity;
+import org.bambrikii.monitoring.envminidashboard.orm.model.PhysicalConnEntity;
 import org.bambrikii.monitoring.envminidashboard.model.PhysicalConn;
 
 import java.util.stream.Collectors;

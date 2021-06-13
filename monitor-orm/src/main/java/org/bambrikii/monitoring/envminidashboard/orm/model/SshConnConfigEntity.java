@@ -1,8 +1,11 @@
-package org.bambrikii.monitoring.envminidashboard.data.config;
+package org.bambrikii.monitoring.envminidashboard.orm.model;
+
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+@ToString(callSuper = true)
 @Entity
 @Table
 public class SshConnConfigEntity extends ConnConfigEntity {

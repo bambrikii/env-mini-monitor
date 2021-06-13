@@ -1,27 +1,23 @@
-package org.bambrikii.monitoring.envminidashboard.data.config;
+package org.bambrikii.monitoring.envminidashboard.orm.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table
-public class EnvEntity {
+public class MetricsNamespaceEntity {
     @Id
-    @GeneratedValue(generator = "ENV_SEQ", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "ENV_SEQ", sequenceName = "ENV_SEQ")
+    @GeneratedValue(generator = "METRICS_FAMILY_SEQ", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "METRICS_FAMILY_SEQ", sequenceName = "METRICS_FAMILY_SEQ")
     private Long id;
     @Column(nullable = false, unique = true)
     private String code;
-    @OneToMany
-    private List<PhysicalConnEntity> connections = new ArrayList<>();
+
 
     public Long getId() {
         return id;
@@ -37,13 +33,5 @@ public class EnvEntity {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public List<PhysicalConnEntity> getConnections() {
-        return connections;
-    }
-
-    public void setConnections(List<PhysicalConnEntity> connections) {
-        this.connections = connections;
     }
 }

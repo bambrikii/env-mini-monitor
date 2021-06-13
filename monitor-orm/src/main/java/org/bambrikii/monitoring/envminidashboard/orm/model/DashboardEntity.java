@@ -1,4 +1,6 @@
-package org.bambrikii.monitoring.envminidashboard.data.config;
+package org.bambrikii.monitoring.envminidashboard.orm.model;
+
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,7 @@ import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
+@ToString
 @Entity
 @Table
 public class DashboardEntity {
@@ -19,6 +22,14 @@ public class DashboardEntity {
     private Long id;
     @OneToMany
     private List<EnvEntity> envs = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public List<EnvEntity> getEnvs() {
         return envs;

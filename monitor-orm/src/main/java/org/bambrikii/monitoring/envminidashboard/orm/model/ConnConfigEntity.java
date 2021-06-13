@@ -1,5 +1,6 @@
-package org.bambrikii.monitoring.envminidashboard.data.config;
+package org.bambrikii.monitoring.envminidashboard.orm.model;
 
+import lombok.ToString;
 import org.bambrikii.monitoring.envminidashboard.model.api.ConnConfiggable;
 
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import javax.persistence.SequenceGenerator;
 import java.util.ArrayList;
 import java.util.List;
 
+@ToString
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class ConnConfigEntity implements ConnConfiggable {
