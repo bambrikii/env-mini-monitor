@@ -1,6 +1,7 @@
 package org.bambrikii.monitoring.envminidashboard.web.converters;
 
 import org.bambrikii.monitoring.envminidashboard.impl.connectors.http.HttpConnConfig;
+import org.bambrikii.monitoring.envminidashboard.model.ConnConfig;
 import org.bambrikii.monitoring.envminidashboard.orm.model.HttpConnConfigEntity;
 
 public class HttpConnConfigConverter {

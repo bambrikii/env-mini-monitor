@@ -38,4 +38,8 @@ public class TagService {
                 .map(tag -> TagConverter.convert(tag))
                 .collect(Collectors.toList());
     }
+
+    public void delete(Long id) {
+        tagRepository.deleteById(id);
+    }
 }

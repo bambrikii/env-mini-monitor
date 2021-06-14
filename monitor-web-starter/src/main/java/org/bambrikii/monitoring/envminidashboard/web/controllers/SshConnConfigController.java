@@ -3,14 +3,18 @@ package org.bambrikii.monitoring.envminidashboard.web.controllers;
 import org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh.SshConnConfig;
 import org.bambrikii.monitoring.envminidashboard.web.services.SshConnConfigService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/conn/config/ssh")
+@DashboardRestAnnotation
+@RestController
+@RequestMapping("/conn/config/ssh")
 public class SshConnConfigController {
     private final SshConnConfigService sshConnConfigService;
 
@@ -31,5 +35,11 @@ public class SshConnConfigController {
     @PutMapping("/${id}")
     public ResponseEntity<SshConnConfig> save(@PathVariable("id") Long id, @RequestBody SshConnConfig pojo) {
         return ResponseEntity.ok(sshConnConfigService.update(id, pojo));
+    }
+
+    @DeleteMapping("/${id}")
+    public ResponseEntity<Boolean> delete(@PathVariable("id") Long id) {
+        sshConnConfigService.delete(id);
+        return ResponseEntity.ok(true);
     }
 }

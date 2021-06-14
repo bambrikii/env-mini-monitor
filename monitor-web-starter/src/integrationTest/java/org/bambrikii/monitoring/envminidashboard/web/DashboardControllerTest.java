@@ -52,7 +52,7 @@ public class DashboardControllerTest {
     public void shouldDashboardAddEnvs() {
         assertThat(client).isNotNull();
 
-        ResponseEntity<List<Dashboard>> dashboard = client.list();
+        ResponseEntity<List<Dashboard>> dashboard = client.find(null);
         assertThat(dashboard).isNotNull();
     }
 

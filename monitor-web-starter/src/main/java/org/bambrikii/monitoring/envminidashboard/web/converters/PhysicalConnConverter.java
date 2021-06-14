@@ -13,7 +13,7 @@ public class PhysicalConnConverter {
                 .map(TagConverter::convert)
                 .collect(Collectors.toList())
         );
-        conn.setConfig(WinConnConfigConverter.convert(entity.getConfig()));
+        conn.setConfig(ConnConfigConverter.convert(entity.getConfig()));
         return conn;
     }
 
@@ -24,7 +24,7 @@ public class PhysicalConnConverter {
                 .map(TagConverter::convert)
                 .collect(Collectors.toList())
         );
-        entity.setConfig(WinConnConfigConverter.convert(conn.getConfig()));
+        entity.setConfig(ConnConfigConverter.convert(conn.getConfig()));
         return entity;
     }
 

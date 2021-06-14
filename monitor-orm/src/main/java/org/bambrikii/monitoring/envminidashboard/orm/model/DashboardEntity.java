@@ -2,6 +2,7 @@ package org.bambrikii.monitoring.envminidashboard.orm.model;
 
 import lombok.ToString;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +21,8 @@ public class DashboardEntity {
     @GeneratedValue(generator = "DASHBOARD_SEQ", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "DASHBOARD_SEQ", sequenceName = "DASHBOARD_SEQ")
     private Long id;
+    @Column(unique = true)
+    private String name;
     @OneToMany
     private List<EnvEntity> envs = new ArrayList<>();
 
@@ -29,6 +32,14 @@ public class DashboardEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<EnvEntity> getEnvs() {

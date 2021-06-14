@@ -29,4 +29,8 @@ public class SshConnConfigService {
         sshConnConfigRepository.save(entity);
         return SshConnConfigConverter.convert(entity);
     }
+
+    public void delete(Long id) {
+        sshConnConfigRepository.deleteById(id);
+    }
 }

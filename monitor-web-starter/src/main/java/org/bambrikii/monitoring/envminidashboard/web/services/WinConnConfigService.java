@@ -18,12 +18,10 @@ public class WinConnConfigService {
         Optional<WinConnConfigEntity> optionalEntity = id == null
                 ? Optional.empty()
                 : winConnConfigRepository.findById(id);
-        WinConnConfigEntity entity;
-        if (optionalEntity.isPresent()) {
-            entity = optionalEntity.get();
-        } else {
-            entity = new WinConnConfigEntity();
-        }
+        WinConnConfigEntity entity = optionalEntity.isPresent()
+                ? optionalEntity.get()
+                : new WinConnConfigEntity();
+        WinConnConfigConverter.convert(pojo, entity);
         winConnConfigRepository.save(entity);
         return WinConnConfigConverter.convert(entity);
     }
