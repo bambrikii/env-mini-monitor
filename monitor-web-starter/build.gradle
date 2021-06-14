@@ -1,0 +1,24 @@
+apply from: "${rootDir}/gradle/java.gradle"
+
+dependencies {
+    annotationProcessor(libs.spring.boot.configuration.processor)
+
+    compile(project(":monitor-orm"))
+    compile(project(":monitor-impl"))
+
+    compile(libs.spring.boot.starter.web)
+
+    compile("javax.xml.bind:jaxb-api:2.2.11")
+    compile("com.sun.xml.bind:jaxb-core:2.2.11")
+    compile("com.sun.xml.bind:jaxb-impl:2.2.11")
+    compile("javax.activation:activation:1.1.1")
+    compile("org.javassist:javassist:3.25.0-GA")
+//    compile(libs.jackson.core)
+//    compile(libs.jackson.databind)
+
+
+    integrationTestCompile(libs.spring.boot.starter.test) {
+        exclude group: "junit", module: "junit"
+    }
+    integrationTestCompile(libs.h2db)
+}

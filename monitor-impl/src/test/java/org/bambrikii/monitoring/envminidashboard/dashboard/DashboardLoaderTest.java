@@ -1,7 +1,7 @@
 package org.bambrikii.monitoring.envminidashboard.dashboard;
 
 import org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh.SshConnector;
-import org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh.SshHostConnConfigCfg;
+import org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh.SshConnConfig;
 import org.bambrikii.monitoring.envminidashboard.impl.connectors.windows.SmbConnector;
 import org.bambrikii.monitoring.envminidashboard.impl.connectors.windows.WinConnConfig;
 import org.bambrikii.monitoring.envminidashboard.impl.dashboard.DashboardBuilder;
@@ -34,7 +34,7 @@ public class DashboardLoaderTest {
         Tag myVmTag = new Tag();
         myVmTag.setName("myVm");
 
-        SshHostConnConfigCfg connCfg = new SshHostConnConfigCfg();
+        SshConnConfig connCfg = new SshConnConfig();
         connCfg.setHost(System.getenv("MY_VM1_HOSTNAME"));
         connCfg.setUsername(System.getenv("MY_VM1_USERNAME"));
         connCfg.setPassword(System.getenv("MY_VM1_PASSWORD"));

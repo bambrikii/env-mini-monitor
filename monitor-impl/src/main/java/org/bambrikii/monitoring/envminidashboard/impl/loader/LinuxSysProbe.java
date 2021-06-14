@@ -4,13 +4,13 @@ import org.bambrikii.monitoring.envminidashboard.connectors.AbstractProbe;
 import org.bambrikii.monitoring.envminidashboard.connectors.api.ProbeAction;
 import org.bambrikii.monitoring.envminidashboard.connectors.api.ProbeResultCollector;
 import org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh.SshConnector;
-import org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh.SshHostConnConfigCfg;
+import org.bambrikii.monitoring.envminidashboard.impl.connectors.ssh.SshConnConfig;
 import org.bambrikii.monitoring.envminidashboard.model.api.ConnConfiggable;
 
 import static org.bambrikii.monitoring.envminidashboard.impl.metrics.MetricsRegistry.SYS_CPU_USAGE_METRIC;
 import static org.bambrikii.monitoring.envminidashboard.impl.metrics.MetricsRegistry.SYS_NAMESPACE;
 
-public class LinuxSysProbe extends AbstractProbe<SshHostConnConfigCfg, SshConnector> {
+public class LinuxSysProbe extends AbstractProbe<SshConnConfig, SshConnector> {
     public static final ProbeAction MPSTAT_ACTION = cmd -> cmd.cmd(() -> "mpstat | grep \"all\" | awk '{print 100-$13}'");
     private static final ProbeAction<Object, Object> MEM_ACTION = cmd -> cmd.cmd(() -> "free | grep \"Mem:\" | awk '{print($3/$2*100)}'");
 
@@ -26,6 +26,6 @@ public class LinuxSysProbe extends AbstractProbe<SshHostConnConfigCfg, SshConnec
 
     @Override
     protected boolean isSupported(ConnConfiggable connectionSetting) {
-        return connectionSetting instanceof SshHostConnConfigCfg;
+        return connectionSetting instanceof SshConnConfig;
     }
 }

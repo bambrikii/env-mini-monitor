@@ -15,11 +15,16 @@ ext.libs = [
         ],
         spring : [
                 boot: [
-                        starter: [
-                                test: "org.springframework.boot:spring-boot-starter-test:${springBootStarterVersion}",
-                                data: [
+                        starter      : [
+                                starter: "org.springframework.boot:spring-boot-starter:${springBootStarterVersion}",
+                                web    : "org.springframework.boot:spring-boot-starter-web:${springBootStarterVersion}",
+                                test   : "org.springframework.boot:spring-boot-starter-test:${springBootStarterVersion}",
+                                data   : [
                                         jpa: "org.springframework.boot:spring-boot-starter-data-jpa:${springBootStarterVersion}"
                                 ]
+                        ],
+                        configuration: [
+                                processor: "org.springframework.boot:spring-boot-configuration-processor:${springBootStarterVersion}"
                         ]
                 ],
                 data: [
@@ -27,5 +32,10 @@ ext.libs = [
                         commons: "org.springframework.data:spring-data-commons:${springBootVersion}"
                 ]
         ],
-        h2db   : "com.h2database:h2:1.4.199"
+        h2db   : "com.h2database:h2:1.4.199",
+
+        jackson: [
+                core    : "com.fasterxml.jackson.core:jackson-core:2.12.3",
+                databind: "com.fasterxml.jackson.core:jackson-databind:2.12.3"
+        ]
 ]

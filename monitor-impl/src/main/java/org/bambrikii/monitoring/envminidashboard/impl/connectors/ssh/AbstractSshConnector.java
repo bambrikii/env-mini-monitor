@@ -8,7 +8,7 @@ import org.bambrikii.monitoring.envminidashboard.connectors.AbstractConnector;
 import java.util.Properties;
 import java.util.logging.Logger;
 
-public abstract class AbstractSshConnector extends AbstractConnector<SshHostConnConfigCfg> {
+public abstract class AbstractSshConnector extends AbstractConnector<SshConnConfig> {
     private static Logger log = Logger.getLogger(AbstractSshConnector.class.getName());
 
     private Session session;
@@ -22,7 +22,7 @@ public abstract class AbstractSshConnector extends AbstractConnector<SshHostConn
         if (session != null && session.isConnected()) {
             return;
         }
-        SshHostConnConfigCfg config = getConfig();
+        SshConnConfig config = getConfig();
         String host = config.getHost();
         int port = config.getPort();
         String user = config.getUsername();

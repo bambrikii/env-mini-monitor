@@ -1,7 +1,6 @@
 rootProject.name = "env-mini-monitor"
 
-include "monitor-webapp"
 include "monitor-model"
 include "monitor-impl"
 include "monitor-orm"
-include "monitor-webapp-loader"
+include "monitor-web-starter"
