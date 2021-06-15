@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,7 +36,7 @@ public class DashboardService {
     private Stream<Dashboard> findByName(String name) {
         Iterable<DashboardEntity> byName = StringUtils.isEmpty(name)
                 ? dashboardRepository.findAll()
-                : dashboardRepository.findByName(name);
+                : Arrays.asList(dashboardRepository.findByName(name).get());
         return StreamSupport
                 .stream(byName
                         .spliterator(), true)
@@ -44,10 +45,6 @@ public class DashboardService {
 
     public List<Dashboard> find(String name) {
         return findByName(name)
-                .map(dashboard1 -> {
-                    loader.load(dashboard1);
-                    return dashboard1;
-                })
                 .collect(Collectors.toList());
     }
 
@@ -64,15 +61,18 @@ public class DashboardService {
         return DashboardConverter.convert(dashboardRepository.findById(id).get());
     }
 
-    public Dashboard update(Long id, Dashboard pojo) {
+    public Dashboard update(Dashboard pojo) {
         DashboardEntity entity;
+        Long id = pojo.getId();
         Optional<DashboardEntity> entityOptional = id == null
                 ? Optional.empty()
                 : dashboardRepository.findById(id);
         entity = entityOptional.isPresent()
                 ? entityOptional.get()
                 : new DashboardEntity();
-        DashboardConverter.convert(pojo, entity);
+
+        DashboardConverter.convert(pojo, entity, env -> envRepository.findById(env.getId()).get());
+
         dashboardRepository.save(entity);
         return DashboardConverter.convert(entity);
     }

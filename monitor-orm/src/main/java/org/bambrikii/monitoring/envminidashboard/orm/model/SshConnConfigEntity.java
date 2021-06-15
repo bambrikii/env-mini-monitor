@@ -2,12 +2,12 @@ package org.bambrikii.monitoring.envminidashboard.orm.model;
 
 import lombok.ToString;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 @ToString(callSuper = true)
 @Entity
-@Table
+@DiscriminatorValue("ssh")
 public class SshConnConfigEntity extends ConnConfigEntity {
     private String username;
     private String password;

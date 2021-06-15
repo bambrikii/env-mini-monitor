@@ -1,35 +1,37 @@
 package org.bambrikii.monitoring.envminidashboard.web.converters;
 
 import org.bambrikii.monitoring.envminidashboard.model.Env;
+import org.bambrikii.monitoring.envminidashboard.model.PhysicalConn;
 import org.bambrikii.monitoring.envminidashboard.orm.model.EnvEntity;
+import org.bambrikii.monitoring.envminidashboard.orm.model.PhysicalConnEntity;
 
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class EnvConverter {
     public static Env convert(EnvEntity entity) {
         Env env = new Env();
-        env.setCode(entity.getCode());
-        env.setConnections(entity
+        convert(entity, env);
+        return env;
+    }
+
+    public static void convert(EnvEntity entity, Env pojo) {
+        pojo.setId(entity.getId());
+        pojo.setCode(entity.getCode());
+        pojo.setConnections(entity
                 .getConnections()
                 .stream()
                 .map(PhysicalConnConverter::convert)
                 .collect(Collectors.toList())
         );
-        return env;
     }
 
-    public static EnvEntity convert(Env env) {
-        EnvEntity entity = new EnvEntity();
-        convert(env, entity);
-        entity.setConnections(env
-                .getConnections()
+    public static void convert(Env pojo, EnvEntity entity, Function<PhysicalConn, PhysicalConnEntity> physicalConnMapper) {
+        entity.setCode(pojo.getCode());
+        entity.setConnections(pojo.getConnections()
                 .stream()
-                .map(PhysicalConnConverter::convert)
-                .collect(Collectors.toList()));
-        return entity;
-    }
-
-    public static void convert(Env env, EnvEntity entity) {
-        entity.setCode(env.getCode());
+                .map(physicalConnMapper)
+                .collect(Collectors.toList())
+        );
     }
 }

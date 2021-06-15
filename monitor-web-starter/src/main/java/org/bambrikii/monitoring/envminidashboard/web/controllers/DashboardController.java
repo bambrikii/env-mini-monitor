@@ -37,12 +37,15 @@ public class DashboardController {
 
     @PutMapping("")
     public ResponseEntity<Dashboard> save(@RequestBody Dashboard dashboard) {
-        return ResponseEntity.ok(dashboardService.update(null, dashboard));
+        return ResponseEntity.ok(dashboardService.update(dashboard));
     }
 
     @PostMapping("/${id}")
     public ResponseEntity<Dashboard> save(@PathVariable("id") Long id, @RequestBody Dashboard dashboard) {
-        return ResponseEntity.ok(dashboardService.update(id, dashboard));
+        if (dashboard.getId() == null) {
+            dashboard.setId(id);
+        }
+        return ResponseEntity.ok(dashboardService.update(dashboard));
     }
 
     @DeleteMapping("/${id}")

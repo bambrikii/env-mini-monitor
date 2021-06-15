@@ -6,8 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Env implements Environmentable<PhysicalConn> {
+    private Long id;
     private String code;
     private List<PhysicalConn> connections = new ArrayList<>();
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     @Override
     public String getCode() {
@@ -31,6 +42,6 @@ public class Env implements Environmentable<PhysicalConn> {
 
     @Override
     public String toString() {
-        return "Env{" + "code='" + code + '\'' + ", connections=" + connections + '}';
+        return "Env{" + "id=" + id + ", code='" + code + '\'' + ", connections=" + connections + '}';
     }
 }

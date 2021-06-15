@@ -11,8 +11,18 @@ public class PhysicalConn implements PhysicalConnectable<
         ConnConfig,
         MetricLog
         > {
+    private Long id;
     private List<Tag> tags;
     private ConnConfig config;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     private List<MetricLog> metricLogs = new ArrayList<>();
 
     @Override
@@ -65,6 +75,11 @@ public class PhysicalConn implements PhysicalConnectable<
 
     @Override
     public String toString() {
-        return "PhysicalConn{" + "tags=" + tags + ", config=" + config + ", metricLogs=" + metricLogs + '}';
+        return "PhysicalConn{" +
+                "id=" + id +
+                ", tags=" + tags +
+                ", config=" + config +
+                ", metricLogs=" + metricLogs +
+                '}';
     }
 }

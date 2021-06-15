@@ -1,9 +1,9 @@
 package org.bambrikii.monitoring.envminidashboard.orm.model;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 @Entity
-@Table
+@DiscriminatorValue("http")
 public class HttpConnConfigEntity extends ConnConfigEntity {
 }

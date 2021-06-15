@@ -5,3 +5,5 @@ spring:
 logging:
   level:
     org.springframework.web.servlet.mvc.method.annotation: TRACE
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type: TRACE

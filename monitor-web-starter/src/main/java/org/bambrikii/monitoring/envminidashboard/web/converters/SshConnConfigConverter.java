@@ -17,6 +17,7 @@ public class SshConnConfigConverter {
     }
 
     public static void convert(SshConnConfigEntity entity, SshConnConfig pojo) {
+        pojo.setId(entity.getId());
         pojo.setHost(entity.getHost());
         pojo.setPort(entity.getPort());
         pojo.setUsername(entity.getUsername());

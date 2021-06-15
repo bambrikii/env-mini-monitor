@@ -25,7 +25,7 @@ public class EnvService {
         EnvEntity entity = entityOptional.isPresent()
                 ? entityOptional.get()
                 : new EnvEntity();
-        EnvConverter.convert(env, entity);
+        EnvConverter.convert(env, entity, conn -> physicalConnRepository.findById(conn.getId()).get());
         envRepository.save(entity);
         return EnvConverter.convert(entity);
     }

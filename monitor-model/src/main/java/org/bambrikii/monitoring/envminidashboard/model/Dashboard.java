@@ -6,8 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Dashboard implements Dashboardable<Env> {
+    private Long id;
     private String name;
     private List<Env> envs = new ArrayList<>();
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

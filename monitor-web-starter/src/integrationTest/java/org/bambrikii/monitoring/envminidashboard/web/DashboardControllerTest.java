@@ -1,8 +1,10 @@
 package org.bambrikii.monitoring.envminidashboard.web;
 
 import org.bambrikii.monitoring.envminidashboard.model.Dashboard;
+import org.bambrikii.monitoring.envminidashboard.model.Env;
 import org.bambrikii.monitoring.envminidashboard.web.config.EnvMonDashboardConfig;
 import org.bambrikii.monitoring.envminidashboard.web.controllers.DashboardController;
+import org.bambrikii.monitoring.envminidashboard.web.controllers.EnvController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,6 +41,9 @@ public class DashboardControllerTest {
     private DashboardController client;
 
     @Autowired
+    private EnvController envClient;
+
+    @Autowired
     private MockRestServiceServer server;
 
     @Test
@@ -48,12 +54,80 @@ public class DashboardControllerTest {
         ;
     }
 
-    @Test
-    public void shouldDashboardAddEnvs() {
-        assertThat(client).isNotNull();
+    private Env saveEnv(String code) {
+        Env env = new Env();
+        env.setCode(code);
+        return envClient.save(env).getBody();
+    }
 
-        ResponseEntity<List<Dashboard>> dashboard = client.find(null);
-        assertThat(dashboard).isNotNull();
+    @Test
+    public void shouldAddDashboard() {
+        Env envResponse = saveEnv("env1");
+
+        Dashboard request = new Dashboard();
+        request.setName("dashboard1");
+        request.getEnvs().add(envResponse);
+        client.save(request);
+
+        ResponseEntity<List<Dashboard>> response = client.find(null);
+        assertThat(response).isNotNull();
+
+        List<Dashboard> body = response.getBody();
+        assertThat(body).isNotNull().hasSize(1);
+        Dashboard dashboard = body.get(0);
+        assertThat(dashboard).extracting("name").contains("dashboard1");
+        assertThat(dashboard).extracting("envs").isNotNull().hasSize(1);
+        assertThat(dashboard.getEnvs().get(0)).extracting("code").contains("env1");
+    }
+
+    @Test
+    public void shouldAddToEnvs() {
+        Dashboard request = new Dashboard();
+        request.setName("dashboard1");
+        request.getEnvs().add(saveEnv("env1"));
+        client.save(request);
+
+        List<Dashboard> dashboardList = client.find("dashboard1").getBody();
+        assertThat(dashboardList).hasSize(1);
+        Dashboard dashboard2 = dashboardList.get(0);
+        assertThat(dashboard2).extracting("envs").hasSize(1);
+
+        request.setId(dashboard2.getId());
+        request.setEnvs(dashboard2.getEnvs());
+        request.getEnvs().add(saveEnv("env2"));
+        client.save(request);
+
+        dashboardList = client.find("dashboard1").getBody();
+        assertThat(dashboardList).hasSize(1);
+        dashboard2 = dashboardList.get(0);
+        assertThat(dashboard2.getEnvs()).hasSize(2);
+        List<Env> envs2 = dashboard2.getEnvs();
+        assertThat(envs2.get(0)).extracting("code").contains("env1");
+        assertThat(envs2.get(1)).extracting("code").contains("env2");
+    }
+
+    @Test
+    public void shouldAddEnvOnce() {
+        Dashboard request = new Dashboard();
+        request.setName("dashboard1");
+        request.getEnvs().add(saveEnv("env1"));
+        client.save(request);
+
+        List<Dashboard> dashboardList = client.find("dashboard1").getBody();
+        assertThat(dashboardList).hasSize(1);
+        Dashboard dashboard2 = dashboardList.get(0);
+        assertThat(dashboard2).extracting("envs").hasSize(1);
+
+        request.setId(dashboard2.getId());
+        request.setEnvs(Arrays.asList(saveEnv("env2")));
+        client.save(request);
+
+        dashboardList = client.find("dashboard1").getBody();
+        assertThat(dashboardList).hasSize(1);
+        dashboard2 = dashboardList.get(0);
+        List<Env> envs = dashboard2.getEnvs();
+        assertThat(envs).hasSize(1);
+        assertThat(envs.get(0)).extracting("code").contains("env2");
     }
 
 }

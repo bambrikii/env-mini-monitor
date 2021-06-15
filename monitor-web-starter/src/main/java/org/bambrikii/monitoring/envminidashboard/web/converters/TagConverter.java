@@ -6,7 +6,7 @@ import org.bambrikii.monitoring.envminidashboard.orm.model.TagEntity;
 public class TagConverter {
     public static Tag convert(TagEntity entity) {
         Tag pojo = new Tag();
-        pojo.setName(entity.getName());
+        convert(entity, pojo);
         return pojo;
     }
 
@@ -14,6 +14,11 @@ public class TagConverter {
         TagEntity entity = new TagEntity();
         convert(pojo, entity);
         return entity;
+    }
+
+    public static void convert(TagEntity entity, Tag pojo) {
+        pojo.setId(entity.getId());
+        pojo.setName(entity.getName());
     }
 
     public static void convert(Tag pojo, TagEntity entity) {
