@@ -35,12 +35,15 @@ public class EnvController {
 
     @PostMapping("")
     public ResponseEntity<Env> save(@RequestBody Env pojo) {
-        return ResponseEntity.ok(envService.update(null, pojo));
+        return ResponseEntity.ok(envService.update(pojo));
     }
 
     @PutMapping("/${id}")
     public ResponseEntity<Env> save(@PathVariable("id") Long id, @RequestBody Env pojo) {
-        return ResponseEntity.ok(envService.update(id, pojo));
+        if (pojo.getId() == null) {
+            pojo.setId(id);
+        }
+        return ResponseEntity.ok(envService.update(pojo));
     }
 
     @DeleteMapping("/${id}")

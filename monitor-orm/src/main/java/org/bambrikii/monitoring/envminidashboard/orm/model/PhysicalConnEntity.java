@@ -50,6 +50,14 @@ public class PhysicalConnEntity implements PhysicalConnectable<
         return tag;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public List<TagEntity> getTags() {
         return tags;

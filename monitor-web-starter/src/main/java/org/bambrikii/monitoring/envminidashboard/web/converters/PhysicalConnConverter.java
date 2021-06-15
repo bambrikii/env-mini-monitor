@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 public class PhysicalConnConverter {
     public static PhysicalConn convert(PhysicalConnEntity entity) {
         PhysicalConn conn = new PhysicalConn();
+        conn.setId(entity.getId());
         conn.setTags(entity.getTags()
                 .stream()
                 .map(TagConverter::convert)

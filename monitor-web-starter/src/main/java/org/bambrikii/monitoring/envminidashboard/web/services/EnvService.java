@@ -18,7 +18,8 @@ public class EnvService {
     @Autowired
     private PhysicalConnRepository physicalConnRepository;
 
-    public Env update(Long id, Env env) {
+    public Env update(Env env) {
+        Long id = env.getId();
         Optional<EnvEntity> entityOptional = id == null
                 ? Optional.empty()
                 : envRepository.findById(id);
